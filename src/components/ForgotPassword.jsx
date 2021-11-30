@@ -1,9 +1,37 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import cardImage from './../images/webLogoDark.svg'
+import axios from "axios";
+import React,{useState} from "react";
+import {useNavigate} from "react-router-dom";
+
+//styling
 import "./../styles/ForgotPassword.css";
-import Otp from "./Otp";
+
+//logo 
+import cardImage from './../images/webLogoDark.svg'
+
 const ForgotPassword = ()=>{
+    
+    let navigate = useNavigate();
+
+    //email state
+    const [email,setEmail] = useState("");
+ 
+    //email onchange
+    const handleEmail= (e) =>{
+        setEmail(e.target.value);
+    }
+
+    //sending otp
+    const sendOtp =(e)=>{
+        e.preventDefault();
+        axios.get('http://localhost:5000/sendotp').then((response)=>{
+            if(response.status === 200){
+              console.log('otp sent successfully')
+              navigate('/verifyOtp');
+            }
+        })
+    }
+
+    
     return (
         <>
             <div className="fp-card">
@@ -13,12 +41,11 @@ const ForgotPassword = ()=>{
                 <div className="fp-main">
                     <div className="fp-email">
                         <label htmlFor="email">Email</label>
-                        <input type="text"placeholder="Enter your Email" />
+                        <input type="text"placeholder="Enter your Email" value={email}onChange={handleEmail} />
                     </div>
                     <div className="fp-button">
-                       <Link to="/verify">
-                       <button>Get Otp</button>
-                       </Link>
+                       <button onClick ={sendOtp}>Get Otp</button>
+
                     </div>
                 </div>
             </div>

@@ -1,10 +1,15 @@
+
 import React from "react";
+
+//styling
 import './../styles/HomePage.css'
+
+//components
 import ProjectCard from './ProjectCard';
 import ProjectView from './ProjectView'
 
 const HomePage = ()=>{
-    const name = "user name"
+  
     return(
       <div className="homepage">
           <div className="homepage-left">
@@ -20,7 +25,7 @@ const HomePage = ()=>{
           <div className="homepage-right">
               <div className="projects">
                     <div className="welcome-title">
-                      <p>Welcome {name}!</p>
+                      <p>Welcome Name!</p>
                     </div>
                     <div className="projects-search">
                         <input type="text" placeholder="Search" />

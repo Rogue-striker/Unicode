@@ -1,6 +1,6 @@
 //libraries
 import React from "react";
-import { Routes,Route, Navigate } from "react-router";
+import { Routes,Route} from "react-router-dom";
 
 //components
 import LoginCard from "./LoginCard";
@@ -27,11 +27,12 @@ const LoginPage = () => {
       </div>
       <div className="LoginPage-right">
         <Routes>
-          <Route path="/login" element={<LoginCard/>}/>
-          <Route path="/signup" element={<SignUpCard/>}/>
+        <Route path="/login" element={<LoginCard/>}/>
+          <Route path="/signup" element={<SignUpCard/>}></Route>
           <Route path="/forgotpassword" element={<ForgotPassword/>}/>
-          <Route path="/verify" element={<Otp/>}/>
-        </Routes>
+          <Route path='/verifyOtp' element={<Otp/>}/>
+          </Routes>
+        
       </div>
     </div>
   );
