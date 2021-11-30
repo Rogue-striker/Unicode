@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Poppins:ital@0;1&display=swap');
+.LoginPage{
+    width: 80vw;
+    display: flex;
+    height: 90vh;
+    margin:auto 10vw;
+    background-image:url('../images/loginImage.svg');
+    background-repeat: no-repeat;
+    background-position: left;
+
+}
+.LoginPage-left{
+    width: 50%;
+    padding-top:7rem; 
+}
+.LoginPage-left p{
+    font-size: 2.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}
+.LoginPage-left #author{
+    text-align: right;
+    
+}
+.LoginPage-right{
+    width: 50%; 
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}

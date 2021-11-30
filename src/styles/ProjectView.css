@@ -1,0 +1,55 @@
+.pv{
+    width: 82vw;
+    font-size:1.05rem;
+}
+#Bugreport{
+    resize: none;
+    border:1px solid black;
+    border-radius: 4px;
+    width:50%;
+    height: 20vh;
+    padding:5px 10px;
+    font-size:1rem;
+}
+.pv-container{
+    width: 60%;
+    margin:0 auto;
+    padding:2rem 3rem;
+}
+.pv-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:4vh;
+    padding:40px;
+}
+.pv-desc{
+    padding: .8rem 0;
+}
+.pv-desc h3{
+    padding:.4rem 0;
+}
+
+.pv-scope{
+    margin-bottom:1rem;
+}
+.pv-report-submit-details{
+    display: flex;
+    flex-direction:column;
+}
+.pv-report-submit-details label{
+    margin:1rem 0;
+    font-weight: bold;
+}
+.pv-report-submit-btn{
+    display:flex;
+    justify-content: flex-start ;
+}
+.pv-report-submit-btn button{
+    margin:1.5rem 0;
+    background-color: #5bc5de;
+    border-style: none;
+    border-radius: 4px;
+    padding: 0.5rem;
+    font-size: 14px;
+}

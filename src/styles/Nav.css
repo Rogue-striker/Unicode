@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+.navBar{
+    height:10vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+     
+}
+.navBar-logo{
+    display:flex;
+    padding-right:20vw;
+}
+.navBar-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.navBar-icon img{
+    height: 6rem;
+}
+.navBar-title{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+.navBar-title a{
+    margin: 0;
+    padding: 0;
+}
+.navBar-title h2{
+    font-size:3rem;
+    font-family: 'Varela Round', sans-serif;
+}
+.navBar-right{
+    width:300px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.navBar-signupbtn{
+    background-color:#5bc5de;
+    color:white;
+    border-style: none;
+    border-radius: 5px;   
+    padding:.7rem;
+    font-size:1.3rem;
+}
+
+.navBar-loginbtn{
+    color:#5bc5de;
+    background-color:white;
+    border-radius: 5px;   
+    border:1px solid #5bc5de;
+    padding:.7rem;
+    font-size:1.3rem;
+}
+.navBar-loginbtn:hover{
+    background-color:#5bc5de;
+    color:white;
+    border-style: none;
+    border-radius: 5px; 
+    transform:scale(1.05);
+}
+.navBar-signupbtn:hover{
+    border: 1px  solid  #5bc5de;
+    background-color: white;
+    color:#5bc5de;
+    border-radius: 5px;
+    transform:scale(1.05);
+}
+.navBar-logoutbtn{
+    color:white;
+    background-color:#5bc5de;
+    border-radius: 5px;   
+    padding:.7rem;
+    font-size:1.3rem;
+    border-style:none;
+}
+.navBar-logoutbtn:hover{
+    color:#5bc5de;
+    background-color:white;
+    border-radius: 5px;   
+    border:1px solid #5bc5de;
+    padding:.7rem;
+    font-size:1.3rem;
+
+}

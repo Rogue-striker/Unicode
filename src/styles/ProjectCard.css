@@ -1,0 +1,36 @@
+.card-container{
+    margin:1.2rem auto;
+    width: 45vw;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.146);
+    border-radius: .5rem;
+}
+.card-container:hover{
+   transform: scale(1.03);
+   transition: .3s ;
+}
+.project-card{
+    padding:1.5rem;
+}
+.project-title{
+    padding:.5rem;
+    font-size: 1.3rem;
+}
+.project-desc{
+    padding: .5rem;
+    font-size: 1.1rem;
+}
+.project-card-btns{
+    padding:.5rem;
+}
+.project-card-btns button{
+    font-size: 1rem;
+    padding: .4rem;
+    margin-right: 1rem;
+    background-color:#5bc6de75 ;
+    border-style: none;
+    border-radius: 4px;
+}
+.project-card-btns button:hover{
+    transform: scale(1.1);
+   ;
+}

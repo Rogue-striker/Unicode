@@ -1,0 +1,82 @@
+.signupcard {
+  background-color: white;
+  width: 25vw;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0 0px 5px rgba(0, 0, 0, 0.253);
+  height: fit-content;
+  padding-top: 1rem;
+  padding-bottom:1rem;
+}
+.signupcard-image {
+    height: 10rem;
+  margin: 0 auto;
+}
+.signupcard-image img {
+height: inherit;
+width: auto;
+  margin: 0;
+}
+.signupcard-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.signupcard-title h2 {
+  text-align: center;
+  margin-bottom: 0px;
+}
+.signupcard-details{
+    padding:2rem;
+}
+.signupcard-field {
+        display: flex;
+        flex-direction: column;
+        margin-bottom:10px;
+}
+.signupcard-field label{
+    padding-bottom: 5px;
+    padding-top: 5px;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+.signupcard-field input{
+    background-color: rgba(211, 211, 211, 0.164);
+    border: 1px solid black;
+    border-radius: 7px;
+    font-size: 1.2rem;
+    height: 20px;
+    padding:16px 10px;
+}
+
+.signupcard-button {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.signupcard-button button {
+  padding: 0.6rem;
+  font-size: 1.2rem;
+  background-color: #5bc5de;
+  color: white;
+  border-style: none;
+  border-radius: 5px;
+}
+.signupcard-button button:hover {
+  transform: scale(1.1);
+  transition: .2s all ease;
+  background-color: #fff;
+  color: #5bc5de;
+  border: 1px solid #5bc5de;
+  border-radius: 5px;
+}
+
+.signupcard-button button:focus {
+  transform: scale(1.1);
+  background-color: #fff;
+  color: #5bc5de;
+  border: 1px solid #5bc5de;
+  border-radius: 5px;
+}

@@ -1,0 +1,44 @@
+.fp-changepassword{
+    background-color: white;
+    width: 25vw;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0 0px 5px rgba(0, 0, 0, 0.253);
+    padding:2rem 3rem;
+    margin-bottom: 15vh;
+}
+.fp-otp ,.fp-newPassword, .fp-renewPassword {
+    display: flex;
+    flex-direction: column;
+}
+.fp-otp label,.fp-newPassword label, .fp-renewPassword label{
+    padding: .4rem 0;
+}
+.fp-otp input,.fp-newPassword input, .fp-renewPassword input{
+    padding: .4rem .4rem;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    border:1px solid black;
+}
+.fp-submitbtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top:2rem;
+}
+.fp-submitbtn button{
+    color:#5bc5de;
+    background-color:white;
+    border-radius: 5px;   
+    border:1px solid #5bc5de;
+    padding:.6rem;
+    font-size:1.2rem;
+}
+.fp-submitbtn button:hover{
+    background-color:#5bc5de;
+    color:white;
+    border-style: none;
+    border-radius: 5px; 
+    transform:scale(1.05);
+}
