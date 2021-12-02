@@ -17,7 +17,8 @@ import ForgotPassword from "./ForgotPassword";
 
 const LoginCard = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  
   var email = "";
   var password = "";
 
@@ -33,17 +34,20 @@ const LoginCard = () => {
       password: password,
     })
       .then((response) => {
+        console.log(response)
         if(response.data.found === false){
           alert("user not found sign up")
         }
+        else{
         if (response.data.login === true) {
           dispatch(setUserid(response.data.login));
           dispatch(updateLogin(true));
           navigate("/home")
-          
-        } else if(response.data.login===false){
+          localStorage.setItem('token',JSON.stringify({login:true,userid:"kiran.1905p6@gmail.com"}))
+        }else if(response.data.login === false){
            alert("wrong password");
         }
+      }
       })
       .catch((error) => {
         console.log(email, password);

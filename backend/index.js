@@ -42,7 +42,7 @@ mongoose.connect(local_mongodb_url,(err)=>{
 app.post("/login",(req,res)=>{
     const user_email = req.body.user_email;
     const passcode  = req.body.password;
-    console.log(req.body)
+
     user.findOne({email:user_email},(err,result)=>{
         if(err){
             res.json({err:true});
@@ -57,6 +57,7 @@ app.post("/login",(req,res)=>{
                 res.json({login:true});
             }
             else{
+
                 res.json({login:false});
             }
         }
@@ -177,12 +178,13 @@ app.post("/addproject",(req,res)=>{
 
 app.get("/projects",(req,res)=>{
     Projects.find({},(err,result)=>{
+       
         if(err){
             res.json({err:true});
         }
         else{
             if(result){
-                res.json(result);
+                res.status(200).send(result);
             }
             else
             {

@@ -1,6 +1,6 @@
 import React from 'react'
 import "./../styles/ProjectView.css"
-const ProjectView = ()=>{
+const ProjectView = (props)=>{
     return(
         <div className="pv">
                 <div className="pv-container">

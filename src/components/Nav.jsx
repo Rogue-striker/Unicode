@@ -27,7 +27,10 @@ const Nav = () => {
 				</div>
 				<div className="navBar-title">
 					<h2>
-						<a href="/">UNICODE</a>
+						<Link to={loggedin ? "/home" : "/"}>
+							<a href="/">UNICODE</a>
+						</Link>
+						
 					</h2>
 				</div>
 			</div>
