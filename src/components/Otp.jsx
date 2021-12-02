@@ -58,7 +58,7 @@ const Otp = () => {
         <input type="password" placeholder="Re-enter Password" value ={renewpwd} onChange={onchangerenewpwd}/>
       </div>
       <div className="fp-submitbtn">
-        <button>Submit</button>
+        <button onClick={handleSubmitbtn}>Submit</button>
       </div>
     </div>
   );

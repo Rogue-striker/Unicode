@@ -1,57 +1,43 @@
 import  React,{ useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import {useSelector,useDispatch} from "react-redux"
+import { useNavigate ,Navigate} from "react-router-dom";
+import Axios from "./Axios";
 
 //styling
 import "./../styles/SignUpCard.css";
 
 //components
 import cardImage from "./../images/webLogoDark.svg";
-import { Navigate } from "react-router";
+import { updateEmail, updateLogin, updatePassword } from "../features/LoginReducer";
 
 const SignUpCard = () => {
  
+ const dispatch = useDispatch();
  let navigate = useNavigate();
   //states
-  const [Username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [cnfpassword, setCnfpassword] = useState("");
+  var name = "";
+  var email = "";
+  var password ="";
+  var repassword = "";
 
-  //username state
-  const handleUsername = (e) => {
-    setUsername(e.target.value);
-  };
-
-  //email state
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  //password state
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
-  //confirm password state
-  const handleCnfpassword = (e) => {
-    setCnfpassword(e.target.value);
-  };
 
   //sign up button
   const handleSignBtn = () => {
-	  if(password !== cnfpassword){
+    console.log(name,email,password)
+	  if(password !== repassword){
 		  alert("passwords does not match")
 	  }
-    axios
-      .post("http://localhost:5000/login", {
-        username: Username,
+    Axios
+      .post("/signup", {
+        username: name,
         email: email,
         password: password,
       })
       .then((response) => {
 		  console.log(response)
 		 if(response.status === 200){
+       dispatch(updateEmail(email));
+       dispatch(updatePassword(password))
 			navigate('/login')
 		 }
       })
@@ -77,8 +63,9 @@ const SignUpCard = () => {
               <input
                 type="text"
                 placeholder="Name"
-                value={Username}
-                onChange={handleUsername}
+                onChange={(e) => {
+                  name = e.target.value;
+                }}
               />
             </div>
             <div className="signupcard-field">
@@ -86,26 +73,30 @@ const SignUpCard = () => {
               <input
                 type="text"
                 placeholder="Email"
-                value={email}
-                onChange={handleEmail}
+               
+                onChange={(e) => {
+                  email = e.target.value
+              }}
               />
             </div>
             <div className="signupcard-field">
               <label htmlFor="Password">Password</label>
               <input
-                type="text"
+                type="password"
                 placeholder="password"
-                value={password}
-                onChange={handlePassword}
+                onChange={(e) => {
+                  password = e.target.value;
+                }}
               />
             </div>
             <div className="signupcard-field">
               <label htmlFor="Password">Confirm Password</label>
               <input
-                type="text"
+                type="password"
                 placeholder="Confirm password"
-                value={cnfpassword}
-                onChange={handleCnfpassword}
+                onChange={(e) => {
+                  repassword = e.target.value; 
+                }}
               />
             </div>
             <div className="signupcard-button">

@@ -55,7 +55,6 @@ a{
     width: inherit;
 }
 .projects-list{
-    padding : 1rem;
     height: 77vh; 
     overflow-y: scroll;
     scroll-behavior: smooth;
@@ -67,21 +66,22 @@ a{
     margin: 1rem 0;
 }
 .projects-search input{
-    border-style: 2px solid black;
-    border-radius:3px;
+    border: 1px solid rgba(0, 0, 0, 0.522);
+    border-radius:5px;
     width:45%;
     font-size: 1rem;
     padding: .4rem;
 }
 .projects-search button{
     font-size: 1rem;
-    padding:.4rem;
+    padding:.5rem;
     margin-left:2rem;
+    border-radius: 2px;
+    background-color: #5bc6de;
+    border-style:none;
 }
 .projects-search button:hover{
-    background-color: #5bc6de75;
-    transition: .3s ease-in-out;
     border-style:none;
-    transform: scale(1.02);
+    transform: scale(1.1);
     font-size: 1rem;
 }

@@ -5,6 +5,7 @@
     border-radius: .5rem;
 }
 .card-container:hover{
+   box-shadow: 0 0 20px  #5bc6deb0;
    transform: scale(1.03);
    transition: .3s ;
 }

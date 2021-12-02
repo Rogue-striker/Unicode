@@ -1,8 +1,6 @@
 import React from "react";
-import axios from "axios";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { Link,useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import {
   updateEmail,
@@ -10,58 +8,49 @@ import {
   setUserid,
   updateLogin,
 } from "../features/LoginReducer";
- 
+
 //components
+import Axios from "./Axios";
 import "./../styles/LoginCard.css";
 import cardImage from "./../images/webLogoDark.svg";
 import ForgotPassword from "./ForgotPassword";
 
 const LoginCard = () => {
   const dispatch = useDispatch();
-
-  // fetching the values from store
-  const emailval = useSelector((state) => state.login.email);
-  const passwordval = useSelector((state) => state.login.password);
-
-  //updating the states of the fields
-  const [emailstate, setEmail] = useState("");
-  const [pass, setPassword] = useState("");
-
-  //email field onchange
-  const handleChangeEmail =(e) => {
-    setEmail(e.target.value)
-    console.log(emailstate)
-    dispatch(updateEmail(emailstate));
-  };
-
-  //password field onchange
-  const handleChangePassword = (e) => {
-    setPassword(e.target.value);
-    dispatch(updatePassword(pass));
-  };
+  const navigate = useNavigate()
+  var email = "";
+  var password = "";
 
   //Login button onclick function
   const handleLogin = (e) => {
     e.preventDefault();
-    if (emailval === "" && passwordval === "") {
+    if (email === "" && password === ""){
       alert("enter the data");
     }
-    axios
-      .post("https://localhost:5000/login", {
-        email: emailval,
-        password: passwordval,
-      })
+    else{
+    Axios.post("/login", {
+      user_email: email,
+      password: password,
+    })
       .then((response) => {
-        console.log(response);
-        dispatch(setUserid(response.data));
-        dispatch(updateLogin(true));
+        if(response.data.found === false){
+          alert("user not found sign up")
+        }
+        if (response.data.login === true) {
+          dispatch(setUserid(response.data.login));
+          dispatch(updateLogin(true));
+          navigate("/home")
+          
+        } else if(response.data.login===false){
+           alert("wrong password");
+        }
       })
       .catch((error) => {
-        console.log(emailval,passwordval)
+        console.log(email, password);
         console.log(error);
       });
+    }
   };
-
   return (
     <>
       <div className="card">
@@ -78,8 +67,7 @@ const LoginCard = () => {
               <input
                 type="text"
                 placeholder="Email"
-                value={emailstate}
-                onChange={handleChangeEmail}
+                onChange={(e)=>{email=e.target.value}}
               />
             </div>
             <div className="card-password">
@@ -87,8 +75,7 @@ const LoginCard = () => {
               <input
                 type="password"
                 placeholder="Password"
-                value={pass}
-                onChange={handleChangePassword}
+                onChange={(e)=>{password = e.target.value}}
               />
             </div>
           </div>

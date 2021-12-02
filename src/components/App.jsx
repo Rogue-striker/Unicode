@@ -1,6 +1,7 @@
 //library imports
 import React from "react";
 import { Routes,Route,Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 //style sheet
 import "../styles/App.css";
 
@@ -8,14 +9,21 @@ import "../styles/App.css";
 import Nav from "./Nav";
 import LoginPage from "./LoginPage";
 import Homepage from "./HomePage";
-import ProjectView from "./ProjectView";
-import ProjectCard from "./ProjectCard";
+
+
 
 const App = () => {
+  var loggedin = useSelector((state)=>state.login.setSignedin);
   return (
     <div className="container">
         <Nav/>
-        <LoginPage/>
+        <Routes>
+          <Route path='/*' element={
+          loggedin ?  <Homepage/> : <LoginPage/> 
+        }/>
+          </Routes>
+        
+        
     </div>
   );
 };

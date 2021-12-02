@@ -1,4 +1,4 @@
-
+//libraries
 import React from "react";
 
 //styling
@@ -9,7 +9,6 @@ import ProjectCard from './ProjectCard';
 import ProjectView from './ProjectView'
 
 const HomePage = ()=>{
-  
     return(
       <div className="homepage">
           <div className="homepage-left">
@@ -31,39 +30,14 @@ const HomePage = ()=>{
                         <input type="text" placeholder="Search" />
                         <button>Search</button>
                     </div>
-                    <ProjectView/>
-                    {/* <div className="projects-list">
+                    <div className="projects-list">
                           <ProjectCard/>
                           <ProjectCard/>
                           <ProjectCard/>
                           <ProjectCard/>
                           <ProjectCard/>
                           <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                          <ProjectCard/>
-                    </div> */}
+                    </div> 
               </div>
           </div>
       </div>

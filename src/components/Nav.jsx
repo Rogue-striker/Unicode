@@ -1,9 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector ,useDispatch} from "react-redux";
+import { useNavigate, Link  } from "react-router-dom";
+import { updateLogin } from "../features/LoginReducer";
 import "./../styles/Nav.css";
 import Logo from "./../images/webLogoDark.svg";
-import { Link } from "react-router-dom";
+
 const Nav = () => {
-	var loggedin = true;
+	var loggedin = useSelector((state)=>state.login.setSignedin);
+	const navigate = useNavigate();
+
+	//dispatcher
+	const dispatch = useDispatch();
+
+	//handle logout 	
+	const handleLogout = (e)=>{
+		e.preventDefault();
+		dispatch( updateLogin(false));
+		navigate("/");
+	}
+
 	return (
 		<div className="navBar">
 			<div className="navBar-logo">
@@ -12,16 +27,15 @@ const Nav = () => {
 				</div>
 				<div className="navBar-title">
 					<h2>
-						{" "}
-						<a href="/">UNICODE</a>{" "}
+						<a href="/">UNICODE</a>
 					</h2>
 				</div>
 			</div>
-			{loggedin ? (
+			{!loggedin ? (
 				<div className="navBar-right">
 					<div className="navBar-login">
 						<Link to="/login">
-							<button className="navBar-loginbtn">Login</button>{" "}
+							<button className="navBar-loginbtn">Login</button>
 						</Link>
 					</div>
 					<div className="navBar-signup ">
@@ -34,7 +48,7 @@ const Nav = () => {
 				<div className="navBar-right">
 					<div className="navBar-login">
 						<Link to="/logout">
-							<button className="navBar-logoutbtn">Log Out</button>{" "}
+							<button className="navBar-logoutbtn" onClick={handleLogout}>Log Out</button>
 						</Link>
 					</div>
 				</div>
