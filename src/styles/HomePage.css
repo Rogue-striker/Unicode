@@ -25,13 +25,10 @@ a{
 .homepage-navbar-item {
     padding: 15px 0;
 }
-.homepage-navbar-item h3{
+.homepage-navbar-item{
     font-size:2rem;
     text-align:center;
     font-weight: lighter;
-}
-.active{
-    background-color: #5bc6de75;
 }
 .homepage-navbar-item:active{
     background-color: #5bc6de75;

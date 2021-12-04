@@ -3,10 +3,10 @@ import { Link,useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import {
-  updateEmail,
-  updatePassword,
+  setUsername,
   setUserid,
   updateLogin,
+  updateEmail,
 } from "../features/LoginReducer";
 
 //components
@@ -40,9 +40,12 @@ const LoginCard = () => {
         }
         else{
         if (response.data.login === true) {
+          console.log(response)
           dispatch(setUserid(response.data.login));
+          dispatch(setUsername(response.data.name))
           dispatch(updateLogin(true));
-          navigate("/home")
+          dispatch(updateEmail(email))
+          navigate("/home/projects")
           localStorage.setItem('token',JSON.stringify({login:true,userid:"kiran.1905p6@gmail.com"}))
         }else if(response.data.login === false){
            alert("wrong password");

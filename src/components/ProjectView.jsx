@@ -1,37 +1,84 @@
 import React from 'react'
+import { useSelector} from 'react-redux';
+import { useParams } from 'react-router';
+import Axios from './Axios';
 import "./../styles/ProjectView.css"
-const ProjectView = (props)=>{
-    return(
-        <div className="pv">
+import CommentCard from './CommentCard';
+
+const ProjectView = ()=>{
+// eslint-disable-next-line
+
+   var report_text = ""
+ var useremail = useSelector((state)=>state.login.username);
+var projects = useSelector(state=>state.login.projects)
+  const {project_id} = useParams()
+ 
+
+   const comments = [{"report":"has xss"},{"report":"has xss"},{"report":"has xss"},{"report":"has xss"},{"report":"has xss"},{"report":"has xss"}
+]
+  projects =  projects.filter((project)=>project._id === project_id)
+
+    const handleReports = (e) => {
+        e.preventDefault();
+        Axios.post('/comment',{"_id":e.target.value,
+        "useremail":useremail
+    }).then((response)=>{
+            console.log(response)
+        })
+    }
+    return( 
+        <>
+        {
+           projects.map((project)=>{
+            
+                return(
+                <div className="pv">
                 <div className="pv-container">
                     <div className="pv-title">
-                        <h3>Title</h3>
+                        <h3>
+                          {project.title}
+                            </h3>
                     </div>
                     <div className="pv-desc">
                         <h3>Description</h3>
-                        <p>Lorem ipsum, dolor sit amet 
-                        consectetur adipisicing elit. Incidunt, 
-                        dolorem?
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint obcaecati dolorem corrupti nihil, esse nostrum ipsum, saepe, consectetur similique totam ab beatae impedit iste. Voluptates vel sed eligendi, error veritatis delectus ducimus natus amet illum, labore distinctio, nisi hic impedit!
+                        <p>
+                        {project.title}
                         </p>
                     </div>
                     <div className="pv-link">
-                        <p>Link:www.people.com </p>
+                        <p>link : {project.project_link}</p>
                     </div>
                     <div className="pv-report-submit">
                         <div className="pv-report-submit-details">
                             <label htmlFor="report">Submit Report :</label>
-                            <textarea name="report" id="Bugreport" cols="30" rows="10"></textarea>
+                            <textarea name="report" id="Bugreport"  onChange={(e)=>report_text=e.target.value}></textarea>
                         </div>
                         <div className="pv-report-submit-btn">
-                            <button>Submit</button>
+                            <button onClick = {handleReports} value= {project._id}>Submit</button>
                         </div>
                     </div>
                     <div className="pv-report-list">
-                        comments
-                    </div>
+                        <div className="pv-report-title">
+                            <h3>Reports</h3>
+                        </div>
+                    {
+                        comments.map((comment)=><CommentCard/>)
+                    }
+        
+                            {/* {project.comments.map((comment)=><CommentCard/>)}
+                     */}</div>
                 </div>
         </div>
+            )
+
+           })
+              
+            
+        }
+        </>
     )
 }
 export default ProjectView;
+
+
+

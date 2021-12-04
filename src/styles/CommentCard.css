@@ -1,0 +1,29 @@
+.commentcard{   
+    width: 40vw;
+    box-shadow: 0 0 15px rgba(0,0,0, 0.25);
+    border-radius: .5rem;
+    margin-bottom: 12px;
+}
+
+.commentcard-report{
+    padding:1.5rem 1rem;
+}
+.commentcardbtn{
+        padding:1.5rem 1rem;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+}
+.commentcard-resolvedbtn{
+    padding: .4rem;
+    border:none; 
+    background-color: #5bc6de80;
+    border-radius: 5px;
+
+}
+.commentcard-deletebtn{
+    padding: .4rem;
+    border:none; 
+    background-color: #fd3838;
+    border-radius: 5px;
+}

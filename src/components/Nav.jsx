@@ -8,7 +8,7 @@ import Logo from "./../images/webLogoDark.svg";
 const Nav = () => {
 	var loggedin = useSelector((state)=>state.login.setSignedin);
 	const navigate = useNavigate();
-
+	
 	//dispatcher
 	const dispatch = useDispatch();
 
@@ -16,6 +16,7 @@ const Nav = () => {
 	const handleLogout = (e)=>{
 		e.preventDefault();
 		dispatch( updateLogin(false));
+		localStorage.removeItem("token")
 		navigate("/");
 	}
 
@@ -27,8 +28,8 @@ const Nav = () => {
 				</div>
 				<div className="navBar-title">
 					<h2>
-						<Link to={loggedin ? "/home" : "/"}>
-							<a href="/">UNICODE</a>
+						<Link to={loggedin ? "/home/projects" : "/"}>
+							UNICODE
 						</Link>
 						
 					</h2>
@@ -50,9 +51,9 @@ const Nav = () => {
 			) : (
 				<div className="navBar-right">
 					<div className="navBar-login">
-						<Link to="/logout">
+						
 							<button className="navBar-logoutbtn" onClick={handleLogout}>Log Out</button>
-						</Link>
+					
 					</div>
 				</div>
 			)}

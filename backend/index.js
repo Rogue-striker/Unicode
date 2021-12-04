@@ -38,7 +38,6 @@ mongoose.connect(local_mongodb_url,(err)=>{
     }
 });
 
-
 app.post("/login",(req,res)=>{
     const user_email = req.body.user_email;
     const passcode  = req.body.password;
@@ -54,7 +53,7 @@ app.post("/login",(req,res)=>{
             if(result.password === passcode){
                 useremail = result.email;
                 res.status(200);
-                res.json({login:true});
+                res.json({login:true,name:result.name});
             }
             else{
 
@@ -193,8 +192,8 @@ app.get("/projects",(req,res)=>{
         }
     })
 });
-
 app.post("/comment",(req,res)=>{
+    const useremail=req.body.useremail;
     Projects.findOne({_id:req.body.id},(err,result)=>{
         if(err){
             res.json({err:true});
@@ -202,7 +201,9 @@ app.post("/comment",(req,res)=>{
         else{
             if(result){
                 user.findOne({email:useremail},(err,result_user)=>{
+                  
                     if(err){
+        
                         res.json({userfound:false});
                     }
                     else
@@ -291,9 +292,6 @@ app.post("/deleteProject",(req,res)=>{
     
 })
 
-app.get("/",(req,res)=>{
-    res.send("<h1>I am up and running</h1>")
-});
 
 
 

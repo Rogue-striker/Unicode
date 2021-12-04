@@ -1,5 +1,5 @@
-import  React,{ useState } from "react";
-import {useSelector,useDispatch} from "react-redux"
+import  React from "react";
+import {useDispatch} from "react-redux"
 import { useNavigate ,Navigate} from "react-router-dom";
 import Axios from "./Axios";
 
@@ -8,7 +8,7 @@ import "./../styles/SignUpCard.css";
 
 //components
 import cardImage from "./../images/webLogoDark.svg";
-import { updateEmail, updateLogin, updatePassword } from "../features/LoginReducer";
+import { updateEmail, updatePassword } from "../features/LoginReducer";
 
 const SignUpCard = () => {
  

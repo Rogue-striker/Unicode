@@ -1,6 +1,15 @@
 import React from "react";
+import { useNavigate,  } from "react-router";
 import './../styles/ProjectCard.css';
 const ProjectCard = (props) =>{
+   
+    const navigate = useNavigate()
+
+    const handleView = (e)=>{
+        e.preventDefault();
+
+ navigate(`/home/projects/${props.details._id}`)
+    }
     return(
            <div className="card-container">
                 <div className="project-card">
@@ -11,8 +20,7 @@ const ProjectCard = (props) =>{
                     <p>{props.details.description}</p>
                 </div>
                 <div className="project-card-btns">
-                    <button>view</button>
-                    <button>submit report</button>
+                    <button onClick={handleView}>view</button>
                 </div>
             </div>
            </div>

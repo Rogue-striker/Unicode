@@ -1,30 +1,53 @@
 //library imports
 import React from "react";
-import { Routes,Route,Navigate } from "react-router-dom";
+import { Routes,Route } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 //style sheet
 import "../styles/App.css";
 
 //components
 import Nav from "./Nav";
 import LoginPage from "./LoginPage";
-import Homepage from "./HomePage";
+import HomePage from "./HomePage";
+import LoginCard from "./LoginCard";
+import SignUpCard from "./SignUpCard";
+import ForgotPassword from "./ForgotPassword";
+import ProjectList from "./ProjectsList"
+import ProjectView from "./ProjectView";
 
-
+import { useNavigate } from "react-router";
 
 const App = () => {
-  var loggedin = useSelector((state)=>state.login.setSignedin);
+  // var username = useSelector((state)=>{
+  //   return state.login.username
+  // })
+  const navigate = useNavigate()
+  var loggedin = useSelector((state)=>{
+    console.log(state)
+     return state.login.setSignedin
+  })
+  ;
   return (
-    <div className="container">
-        <Nav/>
-        <Routes>
-          <Route path='/*' element={
-          loggedin ?  <Homepage/> : <LoginPage/> 
-        }/>
-          </Routes>
-        
-        
-    </div>
+    <>
+      <Nav/>
+      {/* { loggedin ?   navigate("/login"):navigate("/home/projects")} */}
+      <Routes>
+          <Route path="/" element = {<LoginPage/>}>
+          <Route path="login" element = {<LoginCard/>}/>
+          <Route path="signup" element ={<SignUpCard/>}/>
+          <Route path ="forgotPassword" element = {<ForgotPassword/>}/>
+        </Route>
+        {loggedin ?
+        <><Route path="/home" element={<HomePage />}>
+            <Route path="projects" element={<ProjectList />} />
+            <Route path="myprojects" element={<ProjectList myprojects={true} />} />
+            <Route path="projects/:project_id" element={<ProjectView/>} />
+          </Route><Route path="*" element={<><div>not found</div></>} />
+          </> : ""
+         }
+      </Routes>
+    </>
   );
 };
 export default App;

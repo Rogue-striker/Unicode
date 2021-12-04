@@ -15,6 +15,9 @@
     width: 60%;
     margin:0 auto;
     padding:2rem 3rem;
+    height: 77vh; 
+    overflow-y: scroll;
+    scroll-behavior: smooth;
 }
 .pv-title{
     display: flex;
@@ -52,4 +55,7 @@
     border-radius: 4px;
     padding: 0.5rem;
     font-size: 14px;
+}
+.pv-report-title {
+    padding: 1rem 0;
 }
