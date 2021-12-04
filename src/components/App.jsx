@@ -15,8 +15,8 @@ import SignUpCard from "./SignUpCard";
 import ForgotPassword from "./ForgotPassword";
 import ProjectList from "./ProjectsList"
 import ProjectView from "./ProjectView";
-
-import { useNavigate } from "react-router";
+import AddProject from "./AddProject";
+import { Navigate, useNavigate } from "react-router";
 
 const App = () => {
   // var username = useSelector((state)=>{
@@ -43,8 +43,9 @@ const App = () => {
             <Route path="projects" element={<ProjectList />} />
             <Route path="myprojects" element={<ProjectList myprojects={true} />} />
             <Route path="projects/:project_id" element={<ProjectView/>} />
+            <Route path="addProject"  element = {<AddProject/>}/>
           </Route><Route path="*" element={<><div>not found</div></>} />
-          </> : ""
+          </> : <Route path="/home" element={<Navigate to ="/"/>}/>
          }
       </Routes>
     </>

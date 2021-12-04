@@ -2,8 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 var local_storage = JSON.parse(localStorage.getItem('token'));
 var loginStatus ;
+var email;
 if(local_storage){
     loginStatus = local_storage.login;
+    email = local_storage.userid
 }
 else{
     loginStatus = false;
@@ -12,7 +14,7 @@ const LoginReducer = createSlice({
     name:"loginReducer",
     initialState:{
         username:"",
-        email:"",
+        email:email,
         password:"",
         setSignedin:loginStatus,
         UserId:"",

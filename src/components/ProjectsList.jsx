@@ -25,7 +25,7 @@ const ProjectList = (props) => {
           <div className="projects-list">
             {projects.map((project) => {
                 if(project.user_email === email){
-                    return <ProjectCard details={project} key={project._id} />;
+                    return <ProjectCard details={project} key={project._id} deletebtn={true}/>;
                 }
             })}
           </div>

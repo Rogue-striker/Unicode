@@ -23,15 +23,25 @@
 .project-card-btns{
     padding:.5rem;
 }
+.project-card-btns .project-card-deletebtn{
+    background-color: white;
+    border-radius: 4px;
+    padding: .3rem;
+    border:1px solid rgb(230,0,0);
+    color:rgb(230,0,0);
+
+}
 .project-card-btns button{
     font-size: 1rem;
-    padding: .4rem;
+    padding: .4rem; 
+    color: white;
     margin-right: 1rem;
-    background-color:#5bc6de75 ;
-    border-style: none;
+    background-color:#5bc6de ;
+    border: none;
     border-radius: 4px;
 }
+
 .project-card-btns button:hover{
-    transform: scale(1.1);
-   ;
+    transform: scale(1.02);
+
 }

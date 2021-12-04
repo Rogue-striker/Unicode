@@ -1,0 +1,60 @@
+
+.project{
+    width: 60%;
+    margin:0 auto;
+    padding-top:2rem;
+    padding: 0 3rem;
+    overflow-y: scroll;
+    height: 78vh;
+}
+.project-title,.project-description,.project-link{
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 0;
+}
+.project-title label,.project-description label,.project-link label{
+    padding-bottom: .5rem;
+    font-size: 1.3rem;
+}
+
+.project-title input,.project-link input{
+    width: 20rem;
+    font-size: 1.1rem;
+    padding: .5rem .9rem;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: rgba(211, 211, 211, 0.164);
+}
+.project-description textarea{
+    font-size: 1.05rem;
+    resize: none;
+    width: 35rem;
+    height: 20rem;
+    border:none;
+    border-radius: 5px;
+    padding: .5rem .9rem;
+    border: 1px solid black;
+    background-color: rgba(211, 211, 211, 0.164);
+}
+.Addbutton{
+    padding-top:2rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.Addbutton button{
+    padding: .7rem .9rem ;
+    font-size: 1.1rem;
+    background-color: #5bc5de;
+    border-radius: 7px;
+    border:none;
+    color:white;
+}
+.Addbutton button:hover{
+    transform: scale(1.05);
+}
+.Addbutton button:active{
+    background-color: white;
+    border:1px solid #5bc5de;
+    color:#5bc5de;
+}

@@ -163,7 +163,7 @@ app.post("/addproject",(req,res)=>{
                     user_email:useremail,
                     title:req.body.title,
                     description:req.body.description,
-                    date:req.body.date,
+                    date:new Date().toString(),
                     project_link:req.body.project_link,
                     solved:false,
                     comments:[]
