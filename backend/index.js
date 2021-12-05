@@ -193,7 +193,6 @@ app.get("/projects",(req,res)=>{
     })
 });
 app.post("/comment",(req,res)=>{
-    const useremail=req.body.useremail;
     Projects.findOne({_id:req.body.id},(err,result)=>{
         if(err){
             res.json({err:true});
@@ -201,18 +200,17 @@ app.post("/comment",(req,res)=>{
         else{
             if(result){
                 user.findOne({email:useremail},(err,result_user)=>{
-                  
                     if(err){
-        
                         res.json({userfound:false});
                     }
                     else
                     {
+                     
                         if(result_user){
                             const new_comment = {
                                 user_name:result_user.name,
                                 comment:req.body.comment,
-                                date:req.body.date
+                                date:new Date().toISOString()
                             }
                             result.comments.push(new_comment);
                             result.save();

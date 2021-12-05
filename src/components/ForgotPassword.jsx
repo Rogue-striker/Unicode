@@ -1,4 +1,4 @@
-import axios from "axios";
+import Axios from "./Axios";
 import React,{useState} from "react";
 import {useNavigate} from "react-router-dom";
 
@@ -21,9 +21,10 @@ const ForgotPassword = ()=>{
     }
 
     //sending otp
+    
     const sendOtp =(e)=>{
         e.preventDefault();
-        axios.get('http://localhost:5000/sendotp').then((response)=>{
+        Axios.get('/sendotp').then((response)=>{
             if(response.status === 200){
               console.log('otp sent successfully')
               navigate('/verifyOtp');

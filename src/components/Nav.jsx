@@ -17,7 +17,7 @@ const Nav = () => {
 		e.preventDefault();
 		dispatch( updateLogin(false));
 		localStorage.removeItem("token")
-		navigate("/");
+		navigate("/login");
 	}
 
 	return (

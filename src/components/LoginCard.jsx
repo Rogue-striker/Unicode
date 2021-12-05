@@ -4,12 +4,12 @@ import { useDispatch } from "react-redux";
 
 import {
   setUsername,
-  setUserid,
   updateLogin,
   updateEmail,
 } from "../features/LoginReducer";
 
 //components
+
 import Axios from "./Axios";
 import "./../styles/LoginCard.css";
 import cardImage from "./../images/webLogoDark.svg";
@@ -41,12 +41,11 @@ const LoginCard = () => {
         else{
         if (response.data.login === true) {
           console.log(response)
-          dispatch(setUserid(response.data.login));
           dispatch(setUsername(response.data.name))
           dispatch(updateLogin(true));
           dispatch(updateEmail(email))
           navigate("/home/projects")
-          localStorage.setItem('token',JSON.stringify({login:true,userid:"kiran.1905p6@gmail.com"}))
+          localStorage.setItem('token',JSON.stringify({login:true,useremail:email,username:response.data.name}))
         }else if(response.data.login === false){
            alert("wrong password");
         }

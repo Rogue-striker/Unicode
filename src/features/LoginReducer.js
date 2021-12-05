@@ -3,9 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 var local_storage = JSON.parse(localStorage.getItem('token'));
 var loginStatus ;
 var email;
+var username;
+
+
 if(local_storage){
     loginStatus = local_storage.login;
-    email = local_storage.userid
+    email = local_storage.useremail;
+    username = local_storage.username;
+   
 }
 else{
     loginStatus = false;
@@ -13,12 +18,9 @@ else{
 const LoginReducer = createSlice({
     name:"loginReducer",
     initialState:{
-        username:"",
+        username:username,
         email:email,
-        password:"",
         setSignedin:loginStatus,
-        UserId:"",
-        otp:"",
         projects:[],
     },
     reducers :{
@@ -28,18 +30,8 @@ const LoginReducer = createSlice({
         updateEmail: (state,action)=>{
             state.email = action.payload
         },
-        updatePassword:(state,action)=>{
-            state.password = action.payload
-           
-        },
         updateLogin:(state,action)=>{
             state.setSignedin = action.payload
-        },
-        setUserid:(state,action)=>{
-            state.UserId = action.payload;
-        },
-        setOtp:(state,action)=>{
-            state.otp = action.payload;
         },
         setProjects:(state,action)=>{
             state.projects = action.payload;
@@ -47,5 +39,5 @@ const LoginReducer = createSlice({
     }
     
 })
-export const {updateEmail,updatePassword,updateLogin,setUserid,setOtp,setProjects,setUsername} = LoginReducer.actions;
- export default LoginReducer.reducer;
+export const {updateEmail,updateLogin,setProjects,setUsername} = LoginReducer.actions;
+export default LoginReducer.reducer;

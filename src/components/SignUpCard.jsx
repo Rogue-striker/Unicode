@@ -1,5 +1,4 @@
 import  React from "react";
-import {useDispatch} from "react-redux"
 import { useNavigate ,Navigate} from "react-router-dom";
 import Axios from "./Axios";
 
@@ -8,11 +7,11 @@ import "./../styles/SignUpCard.css";
 
 //components
 import cardImage from "./../images/webLogoDark.svg";
-import { updateEmail, updatePassword } from "../features/LoginReducer";
+
 
 const SignUpCard = () => {
  
- const dispatch = useDispatch();
+
  let navigate = useNavigate();
   //states
   var name = "";
@@ -36,8 +35,6 @@ const SignUpCard = () => {
       .then((response) => {
 		  console.log(response)
 		 if(response.status === 200){
-       dispatch(updateEmail(email));
-       dispatch(updatePassword(password))
 			navigate('/login')
 		 }
       })

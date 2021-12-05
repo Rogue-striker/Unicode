@@ -6,35 +6,44 @@ import Axios from "./Axios";
 import ProjectCard from "./ProjectCard";
 const ProjectList = (props) => {
   var myprojects = false;
-  if (props.myprojects) {
-    myprojects = props.myprojects;
-  }
-  const projects = useSelector((state) => state.login.projects);
+  
+  
+  var projects = useSelector((state) => state.login.projects);
   const email = useSelector((state)=>state.login.email)
   const dispatch = useDispatch();
+  
+  if (props.myprojects) {
+    myprojects = props.myprojects;
+    projects = projects.filter((project)=>{
+     return project.user_email ===email
+    })
+  }
+ console.log(projects)
   useEffect(() => {
-    Axios.get("/projects").then((response) => {
-      dispatch(setProjects(response.data));
-    });
-  }, []);
 
+    Axios.get("/projects").then((response) => {
+      
+     return dispatch(setProjects(response.data));
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <>
       {myprojects ? (
         <>
           <div className="projects-list">
-            {projects.map((project) => {
-                if(project.user_email === email){
-                    return <ProjectCard details={project} key={project._id} deletebtn={true}/>;
-                }
-            })}
+            {
+              projects.map((project)=>(
+                <ProjectCard details={project} key={project._id} deletebtn={true} />
+              ))
+                          }
           </div>
         </>
       ) : (
         <div className="projects-list">
           {projects.map((project) => (
             <ProjectCard details={project} key={project._id} />
-          ))}
+            ))}
         </div>
       )}
     </>

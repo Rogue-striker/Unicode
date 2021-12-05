@@ -21,9 +21,6 @@ const CommentCard = (props) => {
       console.log(err)
     })
   }
-
-
-  console.log(useremail,"entered email:",email)
   return (
     <div className="commentcard">
       <div className="commentcard-report">
@@ -31,16 +28,17 @@ const CommentCard = (props) => {
         fugit!
       </div>
       <div className="commentcardbtn">
-        {useremail === email ? (
+        { 
+          useremail === email ? (
           <>
             <button className="commentcard-resolvedbtn">Mark resolved</button>
             <button className="commentcard-deletebtn" onClick = {handleDelete} >Delete</button>
           </>
-        ) : (
+          ) : (
           <>
             <button className="commentcard-deletebtn" onClick = { handleDelete } >Delete</button>
           </>
-        )}
+          )}
       </div>
     </div>
   );

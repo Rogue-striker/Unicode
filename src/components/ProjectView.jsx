@@ -1,28 +1,46 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useParams,useNavigate } from "react-router-dom";
 import Axios from "./Axios";
 import "./../styles/ProjectView.css";
 import CommentCard from "./CommentCard";
+  
 
 const ProjectView = () => {
-  // eslint-disable-next-line
 
+  //eslint-disable-next-line
+  const { project_id } = useParams();
+  const navigate =  useNavigate()
   var report_text = "";
   var useremail = useSelector((state) => state.login.username);
   var projects = useSelector((state) => state.login.projects);
-  const { project_id } = useParams();
-  const comments = []
-  projects = projects.filter((project) => project._id === project_id);
+  
 
+  var comments = [];
+
+    projects = projects.filter((project) => project._id === project_id); 
+   comments =  projects[0].comments
+ 
   const handleReports = (e) => {
     e.preventDefault();
-    Axios.post("/comment", { _id: e.target.value, useremail: useremail }).then(
-      (response) => {
-        console.log(response);
-      }
-    );
-  };
+    if(report_text === ""){
+      alert("please enter the report to submit")
+    }
+    else{
+      Axios.post("/comment", { id: e.target.value, useremail: useremail ,comment:report_text}).then(
+        (response) => {
+          if(response.data.updated===true){
+            alert("Report Submitted")
+           document.getElementById("Bugreport").value = "";
+          }
+        }
+      ).catch((err)=>{
+        alert("error try again")
+      })
+
+    }
+  }
+  
   return (
     <>
       {projects.map((project) => {
@@ -46,6 +64,7 @@ const ProjectView = () => {
                     name="report"
                     id="Bugreport"
                     onChange={(e) => (report_text = e.target.value)}
+                    placeholder = "Enter your report"
                   ></textarea>
                 </div>
                 <div className="pv-report-submit-btn">
@@ -58,12 +77,12 @@ const ProjectView = () => {
                 <div className="pv-report-title">
                   <h3>Reports</h3>
                 </div>
-                {comments.map((comment) => (
-                  <CommentCard />
-                ))}
-
-                {/* {project.comments.map((comment)=><CommentCard/>)}
-                 */}
+                { comments.map((comment)=>{
+                  console.log(comment)
+                  return (
+                    <CommentCard details = {comment} key={comment._id}/>
+                  );
+                })}
               </div>
             </div>
           </div>

@@ -30,12 +30,12 @@ a{
     text-align:center;
     font-weight: lighter;
 }
-.homepage-navbar-item:active{
-    background-color: #5bc6de75;
-}
 .homepage-navbar-item:hover{
     background-color: #5bc6de75;
     cursor: pointer;
+}
+.active{
+    background-color: #5bc6de75;
 }
 .homepage-right{
     width: 82vw;
