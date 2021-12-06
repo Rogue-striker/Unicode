@@ -21,8 +21,17 @@ const CommentCard = (props) => {
       console.log(err)
     })
   }
+
+  const handleMark =(e)=>{
+    e.preventDefault();
+    console.log("marked")
+  }
+
   return (
     <div className="commentcard">
+      <div className="commentcard-username">
+        username
+      </div>
       <div className="commentcard-report">
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore,
         fugit!
@@ -31,7 +40,7 @@ const CommentCard = (props) => {
         { 
           useremail === email ? (
           <>
-            <button className="commentcard-resolvedbtn">Mark resolved</button>
+            <button className="commentcard-resolvedbtn" onClick ={handleMark} >Mark resolved</button>
             <button className="commentcard-deletebtn" onClick = {handleDelete} >Delete</button>
           </>
           ) : (

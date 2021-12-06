@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Axios from "./Axios";
 import "./../styles/ProjectView.css";
 import CommentCard from "./CommentCard";
@@ -10,7 +10,7 @@ const ProjectView = () => {
 
   //eslint-disable-next-line
   const { project_id } = useParams();
-  const navigate =  useNavigate()
+
   var report_text = "";
   var useremail = useSelector((state) => state.login.username);
   var projects = useSelector((state) => state.login.projects);
@@ -18,7 +18,7 @@ const ProjectView = () => {
 
   var comments = [];
 
-    projects = projects.filter((project) => project._id === project_id); 
+   projects = projects.filter((project) => project._id === project_id); 
    comments =  projects[0].comments
  
   const handleReports = (e) => {
@@ -43,7 +43,8 @@ const ProjectView = () => {
   
   return (
     <>
-      {projects.map((project) => {
+      {
+      projects.map((project) => {
         return (
           <div className="pv">
             <div className="pv-container">

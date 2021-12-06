@@ -4,7 +4,7 @@ var local_storage = JSON.parse(localStorage.getItem('token'));
 var loginStatus ;
 var email;
 var username;
-
+var projects;
 
 if(local_storage){
     loginStatus = local_storage.login;
