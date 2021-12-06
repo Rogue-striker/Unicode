@@ -13,8 +13,8 @@ const CommentCard = (props) => {
   const handleDelete= (e)=>{
     e.preventDefault();
     Axios.post("/deleteComment",{
-      "project_id" :123,
-      "comment_id" :123
+      "project_id" :props.project_id,
+      "comment_id" :props.details._id
     }).then((response)=>{
         console.log(response)
     }).catch((err)=>{
@@ -30,11 +30,10 @@ const CommentCard = (props) => {
   return (
     <div className="commentcard">
       <div className="commentcard-username">
-        username
+        {props.details.user_name}
       </div>
       <div className="commentcard-report">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore,
-        fugit!
+        {props.details.comment}
       </div>
       <div className="commentcardbtn">
         { 

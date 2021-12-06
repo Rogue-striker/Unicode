@@ -10,7 +10,7 @@ const ProjectView = () => {
 
   //eslint-disable-next-line
   const { project_id } = useParams();
-
+  
   var report_text = "";
   var useremail = useSelector((state) => state.login.username);
   var projects = useSelector((state) => state.login.projects);
@@ -40,7 +40,6 @@ const ProjectView = () => {
 
     }
   }
-  
   return (
     <>
       {
@@ -81,7 +80,7 @@ const ProjectView = () => {
                 { comments.map((comment)=>{
                   console.log(comment)
                   return (
-                    <CommentCard details = {comment} key={comment._id}/>
+                    <CommentCard details = {comment} key={comment._id} project_id = {project._id}/>
                   );
                 })}
               </div>
