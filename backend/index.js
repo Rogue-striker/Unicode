@@ -1,7 +1,8 @@
-import express, { response } from "express";
+import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
+import nodemailer from 'nodemailer';
 
 
 /*model imports */
@@ -11,7 +12,6 @@ import { Projects } from "./models.js";
 
 /*user credentials */
 var useremail="";
-
 
 
 /*app config */
@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 
 
 /*mongodb setup */
-const local_mongodb_url = `mongodb://localhost/Unicode`;
+const local_mongodb_url = `mongodb://localhost/Unicodes`;
 
 //const mongodb_url = "mongodb+srv://kiranperaka:striker_peraka@cluster0.jc2cu.mongodb.net/uniCode?retryWrites=true&w=majority";
 
@@ -165,7 +165,6 @@ app.post("/addproject",(req,res)=>{
                     description:req.body.description,
                     date:new Date().toString(),
                     project_link:req.body.project_link,
-                    solved:false,
                     comments:[]
                 });
                 save_data.save();
@@ -205,16 +204,16 @@ app.post("/comment",(req,res)=>{
                     }
                     else
                     {
-                     
                         if(result_user){
-                            const new_comment = {
+                            const new_comment = { 
                                 user_name:result_user.name,
                                 comment:req.body.comment,
-                                date:new Date().toISOString()
+                                date:new Date().toISOString(),
+                                solved:false
                             }
                             result.comments.push(new_comment);
                             result.save();
-                            res.json({updated:true});
+                            res.json({updated:true,project:result});
                         }
                         else{
                             res.send({found:false});
@@ -231,6 +230,7 @@ app.post("/comment",(req,res)=>{
 })
 
 app.post("/getproject",(req,res)=>{
+    console.log(req.body)
     Projects.findOne({_id:req.body.id},(err,result)=>{
         if(err){
             res.json({found:false});
@@ -254,7 +254,14 @@ app.post("/projectsolved",(req,res)=>{
         }
         else{
             if(result){
-                result.solved = true;
+
+                result.comments.map((comment)=>{
+                    console.log(comment._id,req.body.comment_id)
+                    if(comment._id ==req.body.comment_id){
+                        comment.solved = true
+                    }
+                })
+               // console.log(result)
                 result.save();
                 res.json({solved:true});
             }
@@ -292,6 +299,32 @@ app.post("/deleteProject",(req,res)=>{
 
 
 
+const transporter = nodemailer.createTransport({
+    service:"gmail",
+    auth:{
+        user:"unicode.suppport@gmail.com",
+        pass:"kiran@123"
+    }
+})
+var otp ;
+var mailOptions = {
+    from:"support@unicode.com",
+    to:"kiran.1905p6@gmail.com",
+    subject:"sending email through nodemailer",
+    text:`Your OTP is ${ otp } please never share this with
+    any now`
+} 
+app.get("/verifyemail",(req,res)=>{
+    otp = Math.floor( Math.random(.6)*1000000)
+    transporter.sendMail({...mailOptions},(err,info)=>{
+        if(err){console.log(err)}
+        else{
+            console.log(info);
+        }
+    })
+    res.json({"otp":otp})
+
+})
 
 
 app.listen(port,()=>{

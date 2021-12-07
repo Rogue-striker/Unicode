@@ -1,26 +1,20 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useSelector,useDispatch } from "react-redux";
+import { useParams ,useNavigate} from "react-router-dom";
 import Axios from "./Axios";
 import "./../styles/ProjectView.css";
 import CommentCard from "./CommentCard";
-  
+import {setProjects} from "./../features/LoginReducer"
 
 const ProjectView = () => {
-
+  const dispatch = useDispatch()
   //eslint-disable-next-line
   const { project_id } = useParams();
-  
   var report_text = "";
   var useremail = useSelector((state) => state.login.username);
   var projects = useSelector((state) => state.login.projects);
-  
+  var project = projects.filter((project) => project._id === project_id); 
 
-  var comments = [];
-
-   projects = projects.filter((project) => project._id === project_id); 
-   comments =  projects[0].comments
- 
   const handleReports = (e) => {
     e.preventDefault();
     if(report_text === ""){
@@ -30,20 +24,32 @@ const ProjectView = () => {
       Axios.post("/comment", { id: e.target.value, useremail: useremail ,comment:report_text}).then(
         (response) => {
           if(response.data.updated===true){
-            alert("Report Submitted")
+            console.log(response.data.project)
+          // alert("Report Submitted")
+          var new_projects = projects.filter((project)=>{return true})
+          let index = projects.findIndex((project)=>project._id ===project_id );
+          console.log(index);
+          if(index!=-1){
+            new_projects.splice(index,1);
+            new_projects.push(response.data.project);
+            
+          }
+          dispatch(setProjects(new_projects))
+       
            document.getElementById("Bugreport").value = "";
           }
         }
       ).catch((err)=>{
-        alert("error try again")
-      })
+        console.log(err)
+      }
+      )
 
     }
   }
   return (
     <>
       {
-      projects.map((project) => {
+      project.map((project) => {
         return (
           <div className="pv">
             <div className="pv-container">
@@ -77,12 +83,18 @@ const ProjectView = () => {
                 <div className="pv-report-title">
                   <h3>Reports</h3>
                 </div>
-                { comments.map((comment)=>{
-                  console.log(comment)
-                  return (
-                    <CommentCard details = {comment} key={comment._id} project_id = {project._id}/>
-                  );
-                })}
+                {
+                     Object.keys(projects).map((key)=>{
+                       return projects[key].comments.map((comment)=>{
+                        console.log(comment)
+                        return (
+                          <CommentCard details = {comment} key={comment._id} project_id = {project._id}/>
+                        );
+                        
+                      })
+                  })
+
+                }
               </div>
             </div>
           </div>

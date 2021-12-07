@@ -10,13 +10,13 @@ const comment_schema = {
     user_name:String,
     comment:String,
     date:String,
+    solved:Boolean
 }
 
 const projects = new mongoose.Schema({
     user_email:String,
     title:String,
     description:String,
-    solved:Boolean,
     date:String,
     project_link:String,
     comments:[comment_schema]

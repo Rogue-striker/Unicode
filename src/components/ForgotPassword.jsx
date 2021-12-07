@@ -13,11 +13,12 @@ const ForgotPassword = ()=>{
     let navigate = useNavigate();
 
     //email state
-    const [email,setEmail] = useState("");
+    var email =""
  
     //email onchange
     const handleEmail= (e) =>{
-        setEmail(e.target.value);
+        email = e.target.value;
+        console.log(email)
     }
 
     //sending otp
@@ -41,7 +42,7 @@ const ForgotPassword = ()=>{
                 <div className="fp-main">
                     <div className="fp-email">
                         <label htmlFor="email">Email</label>
-                        <input type="text"placeholder="Enter your Email" value={email}onChange={handleEmail} />
+                        <input type="text"placeholder="Enter your Email" onChange={handleEmail} />
                     </div>
                     <div className="fp-button">
                        <button onClick ={sendOtp}>Get Otp</button>
