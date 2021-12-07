@@ -6,7 +6,7 @@ import { Outlet, NavLink } from "react-router-dom";
 //styling
 import "./../styles/HomePage.css";
 
-//components
+
 
 const HomePage = () => {
   const username = useSelector((state) => state.login.username);

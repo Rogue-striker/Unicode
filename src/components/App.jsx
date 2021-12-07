@@ -18,9 +18,7 @@ import ProjectView from "./ProjectView";
 import AddProject from "./AddProject";
 
 const App = () => {
-  // var username = useSelector((state)=>{
-  //   return state.login.username
-  // })
+
   const navigate = useNavigate();
   var loggedin = useSelector((state)=>state.login.setSignedin);
   useEffect(()=>{

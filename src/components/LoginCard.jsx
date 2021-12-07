@@ -34,13 +34,13 @@ const LoginCard = () => {
       password: password,
     })
       .then((response) => {
-        console.log(response)
+      //  console.log(response)
         if(response.data.found === false){
           alert("user not found sign up")
         }
         else{
         if (response.data.login === true) {
-          console.log(response)
+         // console.log(response)
           dispatch(setUsername(response.data.name))
           dispatch(updateLogin(true));
           dispatch(updateEmail(email))
@@ -52,7 +52,7 @@ const LoginCard = () => {
       }
       })
       .catch((error) => {
-        console.log(email, password);
+       // console.log(email, password);
         console.log(error);
       });
     }

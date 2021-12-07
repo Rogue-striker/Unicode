@@ -11,7 +11,7 @@ const ProjectView = () => {
   //eslint-disable-next-line
   const { project_id } = useParams();
   var report_text = "";
-  var useremail = useSelector((state) => state.login.username);
+  var useremail = useSelector((state) => state.login.email);
   var projects = useSelector((state) => state.login.projects);
   var project = projects.filter((project) => project._id === project_id); 
 
@@ -24,18 +24,15 @@ const ProjectView = () => {
       Axios.post("/comment", { id: e.target.value, useremail: useremail ,comment:report_text}).then(
         (response) => {
           if(response.data.updated===true){
-            console.log(response.data.project)
-          // alert("Report Submitted")
+            //console.log(response.data.project)
           var new_projects = projects.filter((project)=>{return true})
           let index = projects.findIndex((project)=>project._id ===project_id );
-          console.log(index);
           if(index!=-1){
             new_projects.splice(index,1);
             new_projects.push(response.data.project);
             
           }
           dispatch(setProjects(new_projects))
-       
            document.getElementById("Bugreport").value = "";
           }
         }

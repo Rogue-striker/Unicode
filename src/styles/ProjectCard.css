@@ -3,11 +3,18 @@
     width: 45vw;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.146);
     border-radius: .5rem;
+    transition: .2s smooth;
+}
+.card-container:hover::after{
+    content: "";
+    display:block;
+    border-radius: 0 0 5px 5px;
+    background-color:#5bc6de;
+    height:.3rem;
 }
 .card-container:hover{
-   box-shadow: 0 0 20px  #5bc6deb0;
+   box-shadow: 0 0 5px #5bc6deb0;
    transform: scale(1.03);
-   transition: .3s ;
 }
 .project-card{
     padding:1.5rem;

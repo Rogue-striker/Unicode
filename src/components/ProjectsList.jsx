@@ -6,19 +6,15 @@ import Axios from "./Axios";
 import ProjectCard from "./ProjectCard";
 const ProjectList = (props) => {
   var myprojects = false;
-  
-  
   var projects = useSelector((state) => state.login.projects);
   const email = useSelector((state)=>state.login.email)
   const dispatch = useDispatch();
-  
   if (props.myprojects) {
     myprojects = props.myprojects;
     projects = projects.filter((project)=>{
      return project.user_email ===email
     })
   }
- console.log(projects)
   useEffect(() => {
 
     Axios.get("/projects").then((response) => {

@@ -2,11 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router";
 import "./../styles/AddProject.css";
 import Axios from "./Axios";
-
+import { useSelector } from "react-redux";
 const AddProject = () => {
   var projectTitle = "";
   var projectDesc = "";
   var projectLink = "";
+  const userEmail = useSelector((state)=>state.login.email)
   const navigate = useNavigate();
   const handleAddButton = (e) => {
     e.preventDefault();
@@ -14,6 +15,7 @@ const AddProject = () => {
       alert("Enter all details");
     } else {
       Axios.post("/addproject", {
+        user_email:userEmail,
         title: projectTitle,
         description: projectDesc,
         project_link: projectLink,

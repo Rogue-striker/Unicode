@@ -22,10 +22,14 @@ const SignUpCard = () => {
 
   //sign up button
   const handleSignBtn = () => {
-    console.log(name,email,password)
+   
 	  if(password !== repassword){
 		  alert("passwords does not match")
 	  }
+    else if(name === "" || email ==="" || password ==="" || repassword ===""){
+      alert("enter all the details")
+    }
+    else{
     Axios
       .post("/signup", {
         username: name,
@@ -33,15 +37,15 @@ const SignUpCard = () => {
         password: password,
       })
       .then((response) => {
-		  console.log(response)
 		 if(response.status === 200){
 			navigate('/login')
 		 }
       })
       .catch((error) => { 
 		  console.log(error);
-		 return <Navigate to="/login"></Navigate>
+		 //return <Navigate to="/login"></Navigate>
 	});
+}
   };
 
   return (

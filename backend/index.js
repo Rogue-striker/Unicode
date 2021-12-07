@@ -77,14 +77,13 @@ app.post("/signup",(req,res)=>{
                 res.json({found:true});
             }
             else{
-                const save_data = new user({
+                const save_data = user({
                     name:username,
                     email:user_email,
                     password:passcode
                 });
                 save_data.save();
                 useremail = save_data.email;
-                console.log(save_data);
                 res.json({signup:true});
             }
         }
@@ -142,7 +141,7 @@ app.post("/addproject",(req,res)=>{
     Projects.findOne(
 
         {   
-            user_email:useremail,
+            user_email:req.body.user_email,
             $or: [
                 { title:req.body.title }, 
                 { project_link:req.body.project_link }
@@ -160,7 +159,7 @@ app.post("/addproject",(req,res)=>{
             else
             {
                 const save_data = new Projects({
-                    user_email:useremail,
+                    user_email:req.body.user_email,
                     title:req.body.title,
                     description:req.body.description,
                     date:new Date().toString(),
@@ -198,7 +197,7 @@ app.post("/comment",(req,res)=>{
         }
         else{
             if(result){
-                user.findOne({email:useremail},(err,result_user)=>{
+                user.findOne({email:req.body.useremail},(err,result_user)=>{
                     if(err){
                         res.json({userfound:false});
                     }

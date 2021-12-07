@@ -12,7 +12,6 @@ const LoginPage = () => {
   return (
     
     <div className="LoginPage">
-     
       <div className="LoginPage-left">
         <p>
           “We discovered in our research that insider threats are not viewed as
@@ -22,7 +21,7 @@ const LoginPage = () => {
           has the skills to hide the crime, for months, for years, sometimes
           forever.”
           <br />
-          <div id="author">— Dr. Larry Ponemon</div>
+          <p id="author">— Dr. Larry Ponemon</p>
         </p>
       </div>
       <div className="LoginPage-right">
