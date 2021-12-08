@@ -7,34 +7,29 @@ import { setProjects } from "../features/LoginReducer";
 
 
 const CommentCard = (props) => {
-
  const [resolved,setResolved] = useState(props.details.solved)
-const dispatch = useDispatch();
-  const useremail = useSelector((state) => {
+ const dispatch = useDispatch();
+ const useremail = useSelector((state) => {
     return state.login.email;
-  });
+   });
   var projects = useSelector((state) => state.login.projects);
-  console.log(projects)
+ //project is a object
   var project = projects.filter((pro) => pro._id === props.project_id); 
   const handleDelete= (e)=>{
     e.preventDefault();
-    console.log("before axios")
     Axios.post("/deleteComment",{
       "project_id" :props.project_id,
       "comment_id" :props.details._id
     }).then((response)=>{
-        console.log(response)
         var new_projects =[...projects]
-        console.log(new_projects)
-        let index = projects.findIndex((project)=>project._id ===props.project_id );
+        let index = projects.findIndex((p)=>p._id ===props.project_id);
         console.log(index);
         if(index!=-1){
           new_projects.splice(index,1);
-          new_projects.push(response.data.project);
-          console.log(new_projects)
+          new_projects.push(response.data);
+          dispatch(setProjects(new_projects))
         }
-        console.log(new_projects)
-      //  dispatch(setProjects(new_projects))
+    
     }).catch((err)=>{
       console.log(err)
     })
@@ -44,11 +39,14 @@ const dispatch = useDispatch();
     e.preventDefault();
     Axios.post("/projectsolved",{id:props.project_id,comment_id:props.details._id}).then((response)=>{
       if(response.data.solved===true){
-         console.log("Marked resolved",props.details._id)
+         setResolved(true)   
       }
+    }).catch((err)=>{
+      console.log(err)
     })
-    setResolved(true)    
+     
   }
+
   console.log("status",props.details.solved)
   return (
     <div  className = {resolved ? "commentcard-solved" : "commentcard"}>

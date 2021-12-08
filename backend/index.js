@@ -64,7 +64,6 @@ app.post("/login",(req,res)=>{
 });
 
 app.post("/signup",(req,res)=>{
-    console.log(req.body);
     const username = req.body.username;
     const passcode = req.body.password;
     const user_email = req.body.email;
@@ -229,7 +228,6 @@ app.post("/comment",(req,res)=>{
 })
 
 app.post("/getproject",(req,res)=>{
-    console.log(req.body)
     Projects.findOne({_id:req.body.id},(err,result)=>{
         if(err){
             res.json({found:false});
@@ -255,7 +253,7 @@ app.post("/projectsolved",(req,res)=>{
             if(result){
 
                 result.comments.map((comment)=>{
-                    console.log(comment._id,req.body.comment_id)
+                    console.log(comment._id,req.body.comment_id,"line 256")
                     if(comment._id ==req.body.comment_id){
                         comment.solved = true
                     }
