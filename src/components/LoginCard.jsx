@@ -40,7 +40,6 @@ const LoginCard = () => {
         }
         else{
         if (response.data.login === true) {
-         // console.log(response)
           dispatch(setUsername(response.data.name))
           dispatch(updateLogin(true));
           dispatch(updateEmail(email))

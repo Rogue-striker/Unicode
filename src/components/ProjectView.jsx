@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector,useDispatch } from "react-redux";
-import { useParams ,useNavigate} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Axios from "./Axios";
 import "./../styles/ProjectView.css";
 import CommentCard from "./CommentCard";
@@ -55,7 +55,7 @@ const ProjectView = () => {
               </div>
               <div className="pv-desc">
                 <h3>Description</h3>
-                <p>{project.title}</p>
+                <p>{project.description}</p>
               </div>
               <div className="pv-link">
                 <p> <b>Link</b> : {project.project_link}</p>
@@ -83,7 +83,6 @@ const ProjectView = () => {
                 {
                      Object.keys(projects).map((key)=>{
                        return projects[key].comments.map((comment)=>{
-                        console.log(comment)
                         return (
                           <CommentCard details = {comment} key={comment._id} project_id = {project._id}/>
                         );

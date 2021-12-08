@@ -1,5 +1,5 @@
 import  React from "react";
-import { useNavigate ,Navigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import Axios from "./Axios";
 
 //styling

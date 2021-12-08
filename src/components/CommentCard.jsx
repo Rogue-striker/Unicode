@@ -1,19 +1,19 @@
 import React ,{useState} from "react";
-import  styles from "./../styles/CommentCard.css";
+import   "./../styles/CommentCard.css";
 import { useSelector ,useDispatch} from "react-redux";
 import Axios from "./Axios"
 import { setProjects } from "../features/LoginReducer";
 
 
-
 const CommentCard = (props) => {
  const [resolved,setResolved] = useState(props.details.solved)
  const dispatch = useDispatch();
+ const username = useSelector(state=>state.login.username)
  const useremail = useSelector((state) => {
     return state.login.email;
    });
   var projects = useSelector((state) => state.login.projects);
- //project is a object
+  //var project is a object
   var project = projects.filter((pro) => pro._id === props.project_id); 
   const handleDelete= (e)=>{
     e.preventDefault();
@@ -23,7 +23,7 @@ const CommentCard = (props) => {
     }).then((response)=>{
         var new_projects =[...projects]
         let index = projects.findIndex((p)=>p._id ===props.project_id);
-        console.log(index);
+        //console.log(index);
         if(index!=-1){
           new_projects.splice(index,1);
           new_projects.push(response.data);
@@ -46,8 +46,6 @@ const CommentCard = (props) => {
     })
      
   }
-
-  console.log("status",props.details.solved)
   return (
     <div  className = {resolved ? "commentcard-solved" : "commentcard"}>
       <div className="commentcard-username">
@@ -62,18 +60,36 @@ const CommentCard = (props) => {
       </div>
       <div className="commentcardbtn">
         { 
-          useremail === props.details.useremail ? (
+         
+        //  (useremail === project[0].user_email) && (useremail === props.details.user_email)  ? (
+           
+        //   (  <>          
+        //   </>)
+        //   ) : (
+        //   <>
+        //   {
+        //     // console.log("logged in usermail",useremail,"reporter email:",props.details.user_email,"project",project[0].user_email)
+        //     (props.details.user_email === project[0].user_email) && (props.details.user_email !== useremail) ? <></> : 
+            
+        //   }
+        //   </>
+        //   )
+        (useremail === props.details.user_email) ?( <>
+          <button className="commentcard-deletebtn" onClick = { handleDelete } >Delete</button>
+        </>
+        ) : (
           <>
-           <button className="commentcard-deletebtn" onClick = { handleDelete } >Delete</button>
+         {(useremail === project[0].user_email) &&  
+ <button  className={resolved ? "commentcard-resolvedbtn-solved" :"commentcard-resolvedbtn"} onClick ={handleMark} >Mark resolved</button>
+          }
           </>
-          ) : (
-          <>
-           <button  className={resolved ? "commentcard-resolvedbtn-solved" :"commentcard-resolvedbtn"} onClick ={handleMark} >Mark resolved</button>
-            <button className="commentcard-deletebtn" onClick = {handleDelete} >Delete</button>
-          </>
-          )}
+        )
+      }
       </div>
     </div>
   );
 };
 export default CommentCard;
+
+// <button  className={resolved ? "commentcard-resolvedbtn-solved" :"commentcard-resolvedbtn"} onClick ={handleMark} >Mark resolved</button>
+// <button className="commentcard-deletebtn" onClick = { handleDelete } >Delete</button>

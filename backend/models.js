@@ -7,6 +7,7 @@ const user = new mongoose.Schema({
 });
 
 const comment_schema = {
+    user_email:String,
     user_name:String,
     comment:String,
     date:String,

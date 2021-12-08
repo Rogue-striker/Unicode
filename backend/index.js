@@ -203,7 +203,10 @@ app.post("/comment",(req,res)=>{
                     else
                     {
                         if(result_user){
+
+                            console.log(result_user)
                             const new_comment = { 
+                                user_email:result_user.email,
                                 user_name:result_user.name,
                                 comment:req.body.comment,
                                 date:new Date().toISOString(),

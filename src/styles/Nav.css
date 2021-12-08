@@ -67,7 +67,7 @@
     background-color: white;
     color:#5bc5de;
     border-radius: 5px;
-    transform:scale(1.05);
+   /* transform:scale(1.05); */
 }
 .navBar-logoutbtn{
     color:white;

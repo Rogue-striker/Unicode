@@ -4,7 +4,7 @@
     border-radius: .5rem;
     margin-bottom: 12px;
 }
-.commentcard::after{   
+.commentcard:after{   
     content: '';
     display: block;
     width: 100%;
