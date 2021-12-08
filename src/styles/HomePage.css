@@ -31,11 +31,11 @@ a{
     font-weight: lighter;
 }
 .homepage-navbar-item:hover{
-    background-color: #5bc6de75;
+    background-color: #5bc6de95;
     cursor: pointer;
 }
 .active{
-    background-color: #5bc6de75;
+    background-color: #5bc6de;
 }
 .homepage-right{
     width: 82vw;

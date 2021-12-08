@@ -18,17 +18,17 @@ const ForgotPassword = ()=>{
     //email onchange
     const handleEmail= (e) =>{
         email = e.target.value;
-        console.log(email)
     }
 
     //sending otp
-    
+
     const sendOtp =(e)=>{
         e.preventDefault();
-        Axios.get('/sendotp').then((response)=>{
+        Axios.post('/verifyemail').then((response)=>{
             if(response.status === 200){
+             console.log(response)
               console.log('otp sent successfully')
-              navigate('/verifyOtp');
+              navigate('/changepassword');
             }
         })
     }

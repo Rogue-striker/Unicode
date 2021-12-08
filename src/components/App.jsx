@@ -16,6 +16,8 @@ import ForgotPassword from "./ForgotPassword";
 import ProjectList from "./ProjectsList"
 import ProjectView from "./ProjectView";
 import AddProject from "./AddProject";
+import VerifyEmail from "./VerifyEmail"
+import Otp from "./Otp"
 
 const App = () => {
 
@@ -38,7 +40,9 @@ const App = () => {
           <Route path="/"  element = {<LoginPage/>}>
           <Route path="login" element = {<LoginCard/>}/>
           <Route path="signup" element ={<SignUpCard/>}/>
+          <Route path = "verifyotp" element = {<VerifyEmail/>}/>
           <Route path ="forgotPassword" element = {<ForgotPassword/>}/>
+          <Route path="changepassword" element= {<Otp/>}/>
         </Route>
         {loggedin ?
         <>

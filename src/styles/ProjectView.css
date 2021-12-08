@@ -51,11 +51,18 @@
 .pv-report-submit-btn button{
     margin:1.5rem 0;
     background-color: #5bc5de;
-    border-style: none;
+    border-style:  none;
     border-radius: 4px;
     padding: 0.5rem;
     font-size: 14px;
     color:white;
+}
+.pv-report-submit-btn button:hover{
+   color: #5bc5de;
+   background-color: white;
+    border : 1px solid #5bc5de;
+    border-radius: 4px;
+
 }
 .pv-report-title {
     padding: 1rem 0;

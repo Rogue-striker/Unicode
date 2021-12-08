@@ -52,6 +52,10 @@
 }
 .Addbutton button:hover{
     transform: scale(1.05);
+    background-color: white;
+    color:#5bc5de;
+    border:1px solid #5bc5de;
+    
 }
 .Addbutton button:active{
     background-color: white;

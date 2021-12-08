@@ -59,21 +59,7 @@ const CommentCard = (props) => {
        </p>
       </div>
       <div className="commentcardbtn">
-        { 
-         
-        //  (useremail === project[0].user_email) && (useremail === props.details.user_email)  ? (
-           
-        //   (  <>          
-        //   </>)
-        //   ) : (
-        //   <>
-        //   {
-        //     // console.log("logged in usermail",useremail,"reporter email:",props.details.user_email,"project",project[0].user_email)
-        //     (props.details.user_email === project[0].user_email) && (props.details.user_email !== useremail) ? <></> : 
-            
-        //   }
-        //   </>
-        //   )
+        {   
         (useremail === props.details.user_email) ?( <>
           <button className="commentcard-deletebtn" onClick = { handleDelete } >Delete</button>
         </>
@@ -90,6 +76,3 @@ const CommentCard = (props) => {
   );
 };
 export default CommentCard;
-
-// <button  className={resolved ? "commentcard-resolvedbtn-solved" :"commentcard-resolvedbtn"} onClick ={handleMark} >Mark resolved</button>
-// <button className="commentcard-deletebtn" onClick = { handleDelete } >Delete</button>

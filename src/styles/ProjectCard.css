@@ -1,14 +1,40 @@
+@keyframes moveright{
+    0%{
+        width: 0%;
+    }
+    50%{
+        width: 50%;
+    }
+    75%{
+        width: 75%;
+    } 
+    90%{
+        width: 90%;
+    }
+    
+    100%{
+        width: 100%;
+    }
+}
+
 .card-container{
     margin:1.2rem auto;
     width: 45vw;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.146);
     border-radius: .5rem;
-    transition: .2s smooth;
 }
 
 .card-container:hover{
    box-shadow: 0 0 5px #5bc6deb0;
    transform: scale(1.03);
+}
+.card-container:hover::after{   
+    display: block;
+    content: '';
+    height: .3rem;
+    background-color: #5bc6de;
+    animation: moveright .2s;
+    
 }
 .project-card{
     padding:1.5rem;
@@ -44,5 +70,8 @@
 
 .project-card-btns button:hover{
     transform: scale(1.02);
-
+    color:#5bc6de;
+    border:1px solid #5bc6de;
+    border-radius: 4px;
+    background-color: white;
 }

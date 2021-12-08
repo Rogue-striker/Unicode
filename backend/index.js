@@ -10,6 +10,7 @@ import user from "./models.js";
 import { Projects } from "./models.js";
 
 
+
 /*user credentials */
 var useremail="";
 
@@ -296,9 +297,6 @@ app.post("/deleteProject",(req,res)=>{
     })
     
 })
-
-
-
 const transporter = nodemailer.createTransport({
     service:"gmail",
     auth:{
@@ -306,24 +304,29 @@ const transporter = nodemailer.createTransport({
         pass:"kiran@123"
     }
 })
-var otp ;
-var mailOptions = {
-    from:"support@unicode.com",
-    to:"kiran.1905p6@gmail.com",
-    subject:"sending email through nodemailer",
-    text:`Your OTP is ${ otp } please never share this with
-    any now`
-} 
-app.get("/verifyemail",(req,res)=>{
+var otp = ""
+app.post("/verifyemail",(req,res)=>{
     otp = Math.floor( Math.random(.6)*1000000)
+    const email = req.body.email
+    var mailOptions = {
+        from:"support@unicode.com",
+        to: email,
+        subject:"sending email through nodemailer",
+        text:`Your OTP is ${otp} please never share this with anyone`
+    } 
     transporter.sendMail({...mailOptions},(err,info)=>{
-        if(err){console.log(err)}
+        if(err){
+           if(err.code){
+              console.log(err.code)
+                res.json({'otp':false})
+           }
+        }
         else{
-            console.log(info);
+          //  console.log("otp" ,otp)
+            res.json({"otp":true})
         }
     })
-    res.json({"otp":otp})
-
+    
 })
 
 
