@@ -24,7 +24,7 @@ const ProjectView = () => {
       Axios.post("/comment", { id: e.target.value, useremail: useremail ,comment:report_text}).then(
         (response) => {
           if(response.data.updated===true){
-            //console.log(response.data.project)
+           
           var new_projects = projects.filter((project)=>{return true})
           let index = projects.findIndex((project)=>project._id ===project_id );
           if(index!=-1){
