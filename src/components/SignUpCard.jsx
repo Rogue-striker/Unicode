@@ -38,8 +38,8 @@ const SignUpCard = () => {
       })
       .then((response) => {
 		 if(response.status === 200){
-navigate('/verifyotp')
-		//	navigate('/login')
+    //navigate('/verifyotp')
+	  	navigate('/login')
 		 }
       })
       .catch((error) => { 

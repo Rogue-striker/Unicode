@@ -25,11 +25,10 @@ app.use(bodyParser.json());
 
 
 /*mongodb setup */
-const local_mongodb_url = `mongodb://localhost/Unicodes`;
+//const local_mongodb_url = `mongodb://localhost/Unicodes`;
+const mongodb_url = `mongodb+srv://unicode:unicode@cluster0.qcp7g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
 
-//const mongodb_url = "mongodb+srv://kiranperaka:striker_peraka@cluster0.jc2cu.mongodb.net/uniCode?retryWrites=true&w=majority";
-
-mongoose.connect(local_mongodb_url,(err)=>{
+mongoose.connect(mongodb_url,(err)=>{
     if(err)
     {
         console.log("not connected successfully");
