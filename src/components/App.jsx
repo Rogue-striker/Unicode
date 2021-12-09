@@ -40,7 +40,7 @@ const App = () => {
           <Route path="/"  element = {<LoginPage/>}>
           <Route path="login" element = {<LoginCard/>}/>
           <Route path="signup" element ={<SignUpCard/>}/>
-          <Route path = "verifyotp" element = {<VerifyEmail/>}/>
+          <Route path = "verifyemail/:token" element = {<VerifyEmail/>}/>
           <Route path ="forgotPassword" element = {<ForgotPassword/>}/>
           <Route path="changepassword" element= {<Otp/>}/>
         </Route>

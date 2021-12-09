@@ -30,7 +30,7 @@ const SignUpCard = () => {
       alert("enter all the details")
     }
     else{
-   
+    
     Axios
       .post("/signup", {
         username: name,

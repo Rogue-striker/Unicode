@@ -1,5 +1,5 @@
 import React ,{useState}from "react";
-
+import { useParams } from "react-router-dom"; 
 //styling
 import "./../styles/Otp.css";
 
@@ -7,9 +7,9 @@ import "./../styles/Otp.css";
 import cardImage from './../images/webLogoDark.svg'
 
 
-
 const VerifyEmail = () => {
-  
+  const {token} = useParams();
+  console.log(token)
   //states
   const [Otp,setOtp] = useState("");
 

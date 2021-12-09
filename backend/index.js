@@ -31,8 +31,6 @@ app.use(bodyParser.json());
 
 const local_mongodb_url = `mongodb://localhost/Unicodes`;
 
-//const mongodb_url = "mongodb+srv://kiranperaka:striker_peraka@cluster0.jc2cu.mongodb.net/uniCode?retryWrites=true&w=majority";
-
 mongoose.connect(local_mongodb_url,(err)=>{
     if(err)
     {
@@ -126,12 +124,12 @@ app.post("/verifyemail",(req,res)=>{
         if(err){
            if(err.code){
               console.log(err.code)
-                res.json({'otp':false})
+                res.sendStatus(404)
            }
         }
         else{
           //  console.log("otp" ,otp)
-            res.json({"otp":true})
+            res.sendStatus(200)
         }
     })
     
