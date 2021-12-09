@@ -8,7 +8,6 @@ import { setProjects } from "../features/LoginReducer";
 const CommentCard = (props) => {
  const [resolved,setResolved] = useState(props.details.solved)
  const dispatch = useDispatch();
- const username = useSelector(state=>state.login.username)
  const useremail = useSelector((state) => {
     return state.login.email;
    });
@@ -17,10 +16,14 @@ const CommentCard = (props) => {
   var project = projects.filter((pro) => pro._id === props.project_id); 
   const handleDelete= (e)=>{
     e.preventDefault();
+    const token = JSON.parse(localStorage.getItem("accesstoken"))
     Axios.post("/deleteComment",{
       "project_id" :props.project_id,
       "comment_id" :props.details._id
-    }).then((response)=>{
+    },{
+      headers:{
+      'authorization':`Bearer ${token.accesstoken}`
+  }}).then((response)=>{
         var new_projects =[...projects]
         let index = projects.findIndex((p)=>p._id ===props.project_id);
         //console.log(index);

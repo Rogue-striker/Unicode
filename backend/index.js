@@ -16,6 +16,7 @@ env.config()
 /*user credentials */
 
 var useremail="";
+var accesstoken ;
 
 
 /*app config */
@@ -29,7 +30,7 @@ app.use(bodyParser.json());
 
 /*mongodb setup */
 
-const local_mongodb_url = `mongodb://localhost/Unicodes`;
+const local_mongodb_url = `mongodb://localhost/kiranperaka`;
 
 mongoose.connect(local_mongodb_url,(err)=>{
     if(err)
@@ -51,29 +52,30 @@ const transporter = nodemailer.createTransport({
 })
 
 app.post("/login",(req,res)=>{
-    console.log("request recieved")
     const user_email = req.body.user_email;
     const passcode  = req.body.password;
 
     user.findOne({email:user_email},(err,result)=>{
-        console.log("userfound")
         if(err){
             res.json({err:true});
         }
+      else if(!result){
+            res.json({found:false})
+        }
         else{
-            if(!result){
-                res.json({found:false})
-            }
-            if(result.password === passcode){
+            if(result.password === passcode && result.verified){
                 useremail = result.email;
-                console.log("before jwt")
+               
                 accesstoken = jwt.sign({useremail:result.name},process.env.ACCESS_TOKEN,{expiresIn:"1 day"})
-                console.log("after jwt")
+
                res.json({token:accesstoken,login:true,name:result.name})
             }
             else{
-
+                if(result.verified===false){
+                    res.json({verified:false})
+                }else{
                 res.json({login:false});
+                }
             }
         }
     });
@@ -83,61 +85,84 @@ app.post("/signup",(req,res)=>{
     const username = req.body.username;
     const passcode = req.body.password;
     const user_email = req.body.email;
-    user.exists({email:user_email},(err,result)=>{
+    user.findOne({email:user_email},(err,result)=>{
+        
         if(err){
             res.json({err:true});
         }
         else{
             if(result){
+
                 res.json({found:true});
             }
             else{
                 const save_data = user({
                     name:username,
                     email:user_email,
-                    password:passcode
+                    password:passcode,
+                    verified:false
                 });
+                
                 save_data.save();
                 useremail = save_data.email;
-                const link= jwt.sign({verified:true},process.env.ACCESS_TOKEN,{expiresIn:"10min"})
+                const link= jwt.sign({email:user_email},process.env.ACCESS_TOKEN,{expiresIn:"10min"})
                 var mailOptions = {
-                    from:"support@unicode.com",
-                    to: useremail,
+                    from:"unicode.suppport@gmail.com",
+                    to: user_email,
                     subject:"Verify Your Account",
-                    text:`Please verify your account by clicking this link https://localhost:5001/verifyemail/${link} link expires in 10 mins`
+                    text:`Please verify your account by clicking this link http://localhost:3000/verifyemail/${link} link expires in 10 mins`
                 } 
-                res.json({signup:true});
+                transporter.sendMail({...mailOptions},(err,info)=>{
+                    if(err){
+                       if(err.code){
+                            res.sendStatus(404)
+                       }
+                    }
+                    else{
+                        res.status(200).json({signedup:true})
+                    }
+                })
             }
         }
     })
 });
-app.post("/verifyemail",(req,res)=>{
+app.post("/forgetpassword",(req,res)=>{
     const email = req.body.email
-
+    const link= jwt.sign({email:req.body.email},process.env.ACCESS_TOKEN,{expiresIn:"10min"})
     var mailOptions = {
         from:"support@unicode.com",
         to: email,
         subject:"Verify Your Account",
-        text:`Please verify your account by clicking this link https://localhost:5001/verifyemail?token=${link} link expires in 10 mins`
+        text:`Please change your account password by clicking this link http://localhost:3000/changepassword/${link} link expires in 10 mins`
     } 
     transporter.sendMail({...mailOptions},(err,info)=>{
         if(err){
            if(err.code){
-              console.log(err.code)
                 res.sendStatus(404)
            }
         }
         else{
-          //  console.log("otp" ,otp)
             res.sendStatus(200)
         }
     })
     
 })
+app.post("/changepassword",authenticateToken,(req,res)=>{
+    const email = req.emaildata.email;
+    const password = req.body.password
+    user.updateOne({email:email},{password:password},(err,result)=>{
+        if(err){
+            res.status(404).json({updation:false})
+        }
+        else{
+            res.status(200).json({updation:true})
+        }
+    })
+})
 app.post("/deleteComment",authenticateToken,(req,res)=>{
     const project_id = req.body.project_id;
     const comment_id = req.body.comment_id;
-    Projects.findOne({_id:project_id},(err,result)=>{
+    Projects.findOne({_id:project_id},(err,result)=>{ 
         if(err){
             res.json({err:true});
         }
@@ -181,7 +206,6 @@ app.get("/myProjects",authenticateToken,(req,res)=>{
 });
 
 app.post("/addproject",authenticateToken,(req,res)=>{
-    console.log(req)
     Projects.findOne(
 
         {   
@@ -218,7 +242,6 @@ app.post("/addproject",authenticateToken,(req,res)=>{
 });
 
 app.get("/projects",authenticateToken,(req,res)=>{
-    console.log("got request")
     Projects.find({},(err,result)=>{
        
         if(err){
@@ -249,8 +272,6 @@ app.post("/comment",authenticateToken,(req,res)=>{
                     else
                     {
                         if(result_user){
-
-                            console.log(result_user)
                             const new_comment = { 
                                 user_email:result_user.email,
                                 user_name:result_user.name,
@@ -302,12 +323,12 @@ app.post("/projectsolved",(req,res)=>{
             if(result){
 
                 result.comments.map((comment)=>{
-                    console.log(comment._id,req.body.comment_id,"line 256")
+                   
                     if(comment._id ==req.body.comment_id){
                         comment.solved = true
                     }
                 })
-               // console.log(result)
+               
                 result.save();
                 res.json({solved:true});
             }
@@ -343,10 +364,38 @@ app.post("/deleteProject",authenticateToken,(req,res)=>{
     
 })
 
-
+app.post("/verifyemail",(req,res)=>{
+    const token = req.body.token;
+    jwt.verify(token,process.env.ACCESS_TOKEN,(err,obj)=>{
+        if(err){
+            user.deleteOne({email:email},(err,result)=>{
+                if(err){
+                    console.log(err)
+                }
+                else{
+                    if(result){
+                        res.status(404).json({verifed:false})
+                    }
+                }
+            })
+        }
+        else{
+            const email = obj.email
+            user.updateOne({email:email},{verified:true},(err,result)=>{
+                if(err){
+                    console.log(err)
+                }
+                else{
+                    if(result){
+                        res.status(200).json({verifed:true})
+                    }
+                }
+            })
+        }
+    })
+})
 function authenticateToken(req,res,next){
     const auth_header = req.headers['authorization'];
-    //const token = auth_header.split(' ')[1];
     if(auth_header==null){
         res.sendStatus(401)
     }
@@ -357,9 +406,7 @@ function authenticateToken(req,res,next){
                 res.sendStatus(403)
             }
             else{
-                //console.log(obj)
-                req.data = obj;
-                console.log(req.data)
+                req.emaildata = obj;
                 next()
             }
         })

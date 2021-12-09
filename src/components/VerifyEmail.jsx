@@ -1,45 +1,24 @@
-import React ,{useState}from "react";
-import { useParams } from "react-router-dom"; 
+import React ,{useEffect}from "react";
+import Axios from "./Axios";
+import { useNavigate, useParams } from "react-router-dom"; 
 //styling
 import "./../styles/Otp.css";
 
-//image
-import cardImage from './../images/webLogoDark.svg'
 
 
 const VerifyEmail = () => {
+  const navigate = useNavigate();
   const {token} = useParams();
-  console.log(token)
-  //states
-  const [Otp,setOtp] = useState("");
-
-
-
-  //onchange otp
-  const onchangeotp = (e)=>{
-    setOtp(e.target.value);
-  }
-
-
-  //change password
-  const handleSubmitbtn = (e)=>{
-    e.preventDefault();
-    console.log(Otp)
-
-  }
+  useEffect(() => {
+        Axios.post("/verifyemail",{token:token}).then((response)=>{
+          if(response.data.verifed){
+              alert("Account verified!!!...")
+              navigate("/login")
+          } 
+        })
+  }, [])
   return (
-    <div className="fp-changepassword">
-        <div className="fp-image">
-                    <img src={cardImage} alt="" />
-                </div>
-      <div className="fp-otp">
-        <label htmlFor="otp">Enter OTP</label>
-        <input type="text"placeholder="Enter OTP" value={Otp} onChange={onchangeotp} />
-      </div>
-      <div className="fp-submitbtn">
-        <button onClick={handleSubmitbtn}>Submit</button>
-      </div>
-    </div>
+    <div>verifying passowrd</div>
   );
 };
 

@@ -22,7 +22,6 @@ const SignUpCard = () => {
 
   //sign up button
   const handleSignBtn = () => {
-   
 	  if(password !== repassword){
 		  alert("passwords does not match")
 	  }
@@ -39,10 +38,18 @@ const SignUpCard = () => {
       },
   )
       .then((response) => {
-		 if(response.status === 200){
+        console.log(response)
+		 if(response.data.signedup === true){
        alert("please login after verify your account")  
 	     navigate('/login')
 		 }
+     else if(response.data.found === true){
+       alert("user already exists")
+       navigate("/login")
+     }
+     else{
+       alert("try again");
+     }
       })
       .catch((error) => { 
 		  console.log(error);

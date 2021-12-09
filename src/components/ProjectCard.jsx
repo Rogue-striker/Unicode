@@ -20,9 +20,12 @@ const ProjectCard = (props) =>{
         Axios.post("/deleteProject",{
             id:props.details._id,
            user_email :props.details.user_email
-        },{headers:{
+        },{
+            headers:{
             'authorization':`Bearer ${token.accesstoken}`
-        }}).then((response)=>{
+        }}
+        ).then((response)=>{
+            console.log(response)
             if(response.data.removed){
                 projects = projects.filter((project)=>project._id !==props.details._id)
                 dispatch(setProjects(projects))
@@ -45,7 +48,7 @@ const ProjectCard = (props) =>{
                     <p>{props.details.description}</p>
                 </div>
                 <div className="project-card-btns">
-                    <button onClick={handleView}>view</button>
+                    <button project-card-viewbtn onClick={handleView}>view</button>
                     {props.deletebtn ? <><button className="project-card-deletebtn" onClick={handleDelete}>Delete</button></> :""}
                 </div>
             </div>

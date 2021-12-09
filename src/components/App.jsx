@@ -1,6 +1,6 @@
 //library imports
 import React, { useEffect } from "react";
-import { Routes,Route , Navigate, useNavigate } from "react-router-dom";
+import { Routes,Route , Navigate,useNavigate  } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 //style sheet
@@ -20,17 +20,22 @@ import VerifyEmail from "./VerifyEmail"
 import Otp from "./Otp"
 
 const App = () => {
-
   const navigate = useNavigate();
   var loggedin = useSelector((state)=>state.login.setSignedin);
   useEffect(()=>{
-    
-    if(loggedin === false){
-    navigate("/login")
-    }
-    else{
+    console.log(window.location.pathname)
+    if(loggedin === true){
       navigate("/home/projects")
     }
+    else if(!window.location.pathname.startsWith("/verify") && !(window.location.pathname.startsWith("/change"))){
+      if(loggedin === false){
+        navigate("/login")
+        }
+        else{
+          navigate("/home/projects")
+        }
+    }
+    
   },[])
   
   return (
@@ -42,7 +47,7 @@ const App = () => {
           <Route path="signup" element ={<SignUpCard/>}/>
           <Route path = "verifyemail/:token" element = {<VerifyEmail/>}/>
           <Route path ="forgotPassword" element = {<ForgotPassword/>}/>
-          <Route path="changepassword" element= {<Otp/>}/>
+          <Route path="changepassword/:token" element= {<Otp/>}/>
         </Route>
         {loggedin ?
         <>

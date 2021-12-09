@@ -1,14 +1,12 @@
 //libraries
 import React from "react";
 import { Outlet } from "react-router-dom";
-// import { useSelector } from "react-redux";
-//components
+
 
 import "./../styles/LoginPage.css";
 
 
 const LoginPage = () => {
-  // var loggedin = useSelector((state) => state.login.setSignedin);
   return (
     
     <div className="LoginPage">

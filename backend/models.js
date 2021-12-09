@@ -4,6 +4,7 @@ const user = new mongoose.Schema({
     email:String,
     password:String,
     name:String,
+    verified:Boolean,
 });
 
 const comment_schema = {
