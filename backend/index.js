@@ -3,28 +3,32 @@ import cors from "cors";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import nodemailer from 'nodemailer';
-
+import jwt from "jsonwebtoken"
+import  env from "dotenv"
 
 /*model imports */
 import user from "./models.js";
 import { Projects } from "./models.js";
 
+env.config()
 
 
 /*user credentials */
+
 var useremail="";
 
 
 /*app config */
+
 const app = express();
 const port = 5001;
-
 app.use(cors());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 
 /*mongodb setup */
+
 const local_mongodb_url = `mongodb://localhost/Unicodes`;
 
 //const mongodb_url = "mongodb+srv://kiranperaka:striker_peraka@cluster0.jc2cu.mongodb.net/uniCode?retryWrites=true&w=majority";
@@ -39,11 +43,22 @@ mongoose.connect(local_mongodb_url,(err)=>{
     }
 });
 
+//mail service
+const transporter = nodemailer.createTransport({
+    service:"gmail",
+    auth:{
+        user:"unicode.suppport@gmail.com",
+        pass:"kiran@123"
+    }
+})
+
 app.post("/login",(req,res)=>{
+    console.log("request recieved")
     const user_email = req.body.user_email;
     const passcode  = req.body.password;
 
     user.findOne({email:user_email},(err,result)=>{
+        console.log("userfound")
         if(err){
             res.json({err:true});
         }
@@ -53,8 +68,10 @@ app.post("/login",(req,res)=>{
             }
             if(result.password === passcode){
                 useremail = result.email;
-                res.status(200);
-                res.json({login:true,name:result.name});
+                console.log("before jwt")
+                accesstoken = jwt.sign({useremail:result.name},process.env.ACCESS_TOKEN,{expiresIn:"1 day"})
+                console.log("after jwt")
+               res.json({token:accesstoken,login:true,name:result.name})
             }
             else{
 
@@ -84,16 +101,44 @@ app.post("/signup",(req,res)=>{
                 });
                 save_data.save();
                 useremail = save_data.email;
+                const link= jwt.sign({verified:true},process.env.ACCESS_TOKEN,{expiresIn:"10min"})
+                var mailOptions = {
+                    from:"support@unicode.com",
+                    to: useremail,
+                    subject:"Verify Your Account",
+                    text:`Please verify your account by clicking this link https://localhost:5001/verifyemail/${link} link expires in 10 mins`
+                } 
                 res.json({signup:true});
             }
         }
     })
 });
+app.post("/verifyemail",(req,res)=>{
+    const email = req.body.email
 
-app.post("/deleteComment",(req,res)=>{
+    var mailOptions = {
+        from:"support@unicode.com",
+        to: email,
+        subject:"Verify Your Account",
+        text:`Please verify your account by clicking this link https://localhost:5001/verifyemail?token=${link} link expires in 10 mins`
+    } 
+    transporter.sendMail({...mailOptions},(err,info)=>{
+        if(err){
+           if(err.code){
+              console.log(err.code)
+                res.json({'otp':false})
+           }
+        }
+        else{
+          //  console.log("otp" ,otp)
+            res.json({"otp":true})
+        }
+    })
+    
+})
+app.post("/deleteComment",authenticateToken,(req,res)=>{
     const project_id = req.body.project_id;
     const comment_id = req.body.comment_id;
-
     Projects.findOne({_id:project_id},(err,result)=>{
         if(err){
             res.json({err:true});
@@ -120,7 +165,7 @@ app.post("/deleteComment",(req,res)=>{
 
 })
 
-app.get("/myProjects",(req,res)=>{
+app.get("/myProjects",authenticateToken,(req,res)=>{
     Projects.findOne({user_email:useremail},(err,result)=>{
         if(err){
             res.json({err:true});
@@ -137,7 +182,8 @@ app.get("/myProjects",(req,res)=>{
     })
 });
 
-app.post("/addproject",(req,res)=>{
+app.post("/addproject",authenticateToken,(req,res)=>{
+    console.log(req)
     Projects.findOne(
 
         {   
@@ -173,7 +219,8 @@ app.post("/addproject",(req,res)=>{
     });
 });
 
-app.get("/projects",(req,res)=>{
+app.get("/projects",authenticateToken,(req,res)=>{
+    console.log("got request")
     Projects.find({},(err,result)=>{
        
         if(err){
@@ -190,7 +237,7 @@ app.get("/projects",(req,res)=>{
         }
     })
 });
-app.post("/comment",(req,res)=>{
+app.post("/comment",authenticateToken,(req,res)=>{
     Projects.findOne({_id:req.body.id},(err,result)=>{
         if(err){
             res.json({err:true});
@@ -231,7 +278,7 @@ app.post("/comment",(req,res)=>{
     })
 })
 
-app.post("/getproject",(req,res)=>{
+app.post("/getproject",authenticateToken,(req,res)=>{
     Projects.findOne({_id:req.body.id},(err,result)=>{
         if(err){
             res.json({found:false});
@@ -273,7 +320,7 @@ app.post("/projectsolved",(req,res)=>{
     })
 })
 
-app.post("/deleteProject",(req,res)=>{
+app.post("/deleteProject",authenticateToken,(req,res)=>{
     user.findOne({email:useremail},(err,result)=>{
         if(err){
             res.json({err:true});
@@ -297,39 +344,30 @@ app.post("/deleteProject",(req,res)=>{
     })
     
 })
-const transporter = nodemailer.createTransport({
-    service:"gmail",
-    auth:{
-        user:"unicode.suppport@gmail.com",
-        pass:"kiran@123"
+
+
+function authenticateToken(req,res,next){
+    const auth_header = req.headers['authorization'];
+    //const token = auth_header.split(' ')[1];
+    if(auth_header==null){
+        res.sendStatus(401)
     }
-})
-var otp = ""
-app.post("/verifyemail",(req,res)=>{
-    otp = Math.floor( Math.random(.6)*1000000)
-    const email = req.body.email
-    var mailOptions = {
-        from:"support@unicode.com",
-        to: email,
-        subject:"sending email through nodemailer",
-        text:`Your OTP is ${otp} please never share this with anyone`
-    } 
-    transporter.sendMail({...mailOptions},(err,info)=>{
-        if(err){
-           if(err.code){
-              console.log(err.code)
-                res.json({'otp':false})
-           }
-        }
-        else{
-          //  console.log("otp" ,otp)
-            res.json({"otp":true})
-        }
-    })
+    else{
+        const token = auth_header.split(' ')[1];
+        jwt.verify(token,process.env.ACCESS_TOKEN,(err,obj)=>{
+            if(err){
+                res.sendStatus(403)
+            }
+            else{
+                //console.log(obj)
+                req.data = obj;
+                console.log(req.data)
+                next()
+            }
+        })
+    }
     
-})
-
-
+}
 app.listen(port,()=>{
     console.log("the server is running on the port "+port);
 });

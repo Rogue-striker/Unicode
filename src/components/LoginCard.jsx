@@ -44,6 +44,7 @@ const LoginCard = () => {
           dispatch(updateLogin(true));
           dispatch(updateEmail(email))
           navigate("/home/projects")
+          localStorage.setItem('accesstoken',JSON.stringify({accesstoken:response.data.token}))
           localStorage.setItem('token',JSON.stringify({login:true,useremail:email,username:response.data.name}))
         }else if(response.data.login === false){
            alert("wrong password");

@@ -16,10 +16,13 @@ const ProjectCard = (props) =>{
     }
     const handleDelete = (e)=>{
         e.preventDefault(e);
+        const token = JSON.parse(localStorage.getItem("accesstoken"))
         Axios.post("/deleteProject",{
             id:props.details._id,
            user_email :props.details.user_email
-        }).then((response)=>{
+        },{headers:{
+            'authorization':`Bearer ${token.accesstoken}`
+        }}).then((response)=>{
             if(response.data.removed){
                 projects = projects.filter((project)=>project._id !==props.details._id)
                 dispatch(setProjects(projects))

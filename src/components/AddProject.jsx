@@ -11,6 +11,7 @@ const AddProject = () => {
   const navigate = useNavigate();
   const handleAddButton = (e) => {
     e.preventDefault();
+   const token =  JSON.parse(localStorage.getItem("accesstoken"))
     if (projectLink === "" || projectTitle === "" || projectDesc === "") {
       alert("Enter all details");
     } else {
@@ -19,8 +20,13 @@ const AddProject = () => {
         title: projectTitle,
         description: projectDesc,
         project_link: projectLink,
-      })
-        .then((response) => {
+      },
+      {
+        headers:{
+          'authorization':`Bearer ${token.accesstoken}`
+         }
+        } 
+    ).then((response) => {
           if (response.data.added) {
             alert("project Added");
             navigate("/home/myprojects");
@@ -31,6 +37,7 @@ const AddProject = () => {
           
         })
         .catch((err) => {
+          console.log(err)
           alert("error try again");
         });
        

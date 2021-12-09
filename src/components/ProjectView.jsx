@@ -21,7 +21,10 @@ const ProjectView = () => {
       alert("please enter the report to submit")
     }
     else{
-      Axios.post("/comment", { id: e.target.value, useremail: useremail ,comment:report_text}).then(
+      const token = JSON.parse(localStorage.getItem("accesstoken"))
+      Axios.post("/comment", { id: e.target.value, useremail: useremail ,comment:report_text},{headers:{
+        'authorization':`Bearer ${token.accesstoken}`
+    }}).then(
         (response) => {
           if(response.data.updated===true){
            

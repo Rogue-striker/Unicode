@@ -30,16 +30,18 @@ const SignUpCard = () => {
       alert("enter all the details")
     }
     else{
+   
     Axios
       .post("/signup", {
         username: name,
         email: email,
         password: password,
-      })
+      },
+  )
       .then((response) => {
 		 if(response.status === 200){
-navigate('/verifyotp')
-		//	navigate('/login')
+       alert("please login after verify your account")  
+	     navigate('/login')
 		 }
       })
       .catch((error) => { 

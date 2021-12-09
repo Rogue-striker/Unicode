@@ -17,6 +17,7 @@ const Nav = () => {
 		e.preventDefault();
 		dispatch( updateLogin(false));
 		localStorage.removeItem("token")
+		localStorage.removeItem("accesstoken")
 		navigate("/login");
 	}
 
