@@ -19,7 +19,9 @@ import AddProject from "./AddProject";
 import VerifyEmail from "./VerifyEmail"
 import Otp from "./Otp"
 
+
 const App = () => {
+   // eslint-disable-next-line react-hooks/exhaustive-deps
   const navigate = useNavigate();
   var loggedin = useSelector((state)=>state.login.setSignedin);
   useEffect(()=>{
@@ -35,7 +37,7 @@ const App = () => {
           navigate("/home/projects")
         }
     }
-    
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
   
   return (

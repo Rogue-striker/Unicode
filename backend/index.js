@@ -22,17 +22,13 @@ var accesstoken ;
 /*app config */
 
 const app = express();
-const port = 5001;
+const port = process.env.PORT || 5001;
 app.use(cors());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 
-/*mongodb setup */
-
-const local_mongodb_url = `mongodb://localhost/kiranperaka`;
-
-mongoose.connect(local_mongodb_url,(err)=>{
+mongoose.connect(process.env.MONGODB_URL,(err)=>{
     if(err)
     {
         console.log("not connected successfully");
@@ -86,7 +82,7 @@ app.post("/signup",(req,res)=>{
     const passcode = req.body.password;
     const user_email = req.body.email;
     user.findOne({email:user_email},(err,result)=>{
-        
+
         if(err){
             res.json({err:true});
         }

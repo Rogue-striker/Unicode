@@ -40,7 +40,7 @@ const SignUpCard = () => {
       .then((response) => {
         console.log(response)
 		 if(response.data.signedup === true){
-       alert("please login after verify your account")  
+       alert("A email has been sent your email please verify it to login")  
 	     navigate('/login')
 		 }
      else if(response.data.found === true){

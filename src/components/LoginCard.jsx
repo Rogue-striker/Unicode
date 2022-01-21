@@ -49,6 +49,9 @@ const LoginCard = () => {
         }else if(response.data.login === false){
            alert("wrong password");
         }
+        else{
+          alert("verify your account")
+        }
       }
       })
       .catch((error) => {

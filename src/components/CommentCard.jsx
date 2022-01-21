@@ -27,7 +27,7 @@ const CommentCard = (props) => {
         var new_projects =[...projects]
         let index = projects.findIndex((p)=>p._id ===props.project_id);
         //console.log(index);
-        if(index!=-1){
+        if(index!==-1){
           new_projects.splice(index,1);
           new_projects.push(response.data);
           dispatch(setProjects(new_projects))

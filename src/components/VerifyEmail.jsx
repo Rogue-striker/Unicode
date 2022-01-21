@@ -16,6 +16,7 @@ const VerifyEmail = () => {
               navigate("/login")
           } 
         })
+         // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <div>verifying passowrd</div>

@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
 .navBar{
     height:10vh;
     width: 100vw;
     display: flex;
     align-items: center;
-    justify-content: space-around;
-     
+    justify-content: space-around; 
 }
 .navBar-logo{
     display:flex;

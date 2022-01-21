@@ -30,7 +30,7 @@ const ProjectView = () => {
            
           var new_projects = projects.filter((project)=>{return true})
           let index = projects.findIndex((project)=>project._id ===project_id );
-          if(index!=-1){
+          if(index!==-1){
             new_projects.splice(index,1);
             new_projects.push(response.data.project);
             
