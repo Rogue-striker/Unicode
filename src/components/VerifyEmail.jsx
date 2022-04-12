@@ -12,7 +12,7 @@ const VerifyEmail = () => {
   useEffect(() => {
         Axios.post("/verifyemail",{token:token}).then((response)=>{
           if(response.data.verifed){
-              alert("Account verified!!!...")
+              alert("Account verified!!!...");
               navigate("/login")
           } 
         })
